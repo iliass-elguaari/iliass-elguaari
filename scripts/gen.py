@@ -1,18 +1,17 @@
 """Generates the animated SVG assets for iliass-elguaari's profile README.
 
-Theme: "Floodlights" — a night match. Amber LED stadium scoreboard
-(the yellow of a referee's card) over a floodlit pitch.
+Theme: "Floodlights" — a night match. Red LED stadium scoreboard
+(the red of a referee's card) over a floodlit pitch.
 """
 import math
 import os
 import sys
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "assets"
-os.makedirs(OUT, exist_ok=True)
 
-AMBER = "#F2B705"
-AMBER_DIM = "#3A2C05"
-GREEN = "#2BD26B"
+AMBER = "#FF2D3D"  # red-card red (kept the name so the code reads the same)
+AMBER_DIM = "#3A0A0E"
+GREEN = "#C9D3CD"  # chalk, for the HOME / AWAY row
 PITCH = "#0E4D32"
 PITCH2 = "#12603F"
 NIGHT = "#06090F"
@@ -73,6 +72,9 @@ F = {
     "+": ["00000", "00100", "00100", "11111", "00100", "00100", "00000"],
     "#": ["01010", "01010", "11111", "01010", "11111", "01010", "01010"],
     "&": ["01100", "10010", "10100", "01000", "10101", "10010", "01101"],
+    "%": ["11001", "11010", "00010", "00100", "01000", "01011", "10011"],
+    "(": ["00010", "00100", "01000", "01000", "01000", "00100", "00010"],
+    ")": ["01000", "00100", "00010", "00010", "00010", "00100", "01000"],
 }
 
 
@@ -84,7 +86,7 @@ def led_path(s, x0, y0, pitch):
     """One path whose round-capped zero-length segments draw each lit LED."""
     parts = []
     for i, ch in enumerate(s.upper()):
-        g = F[ch]
+        g = F.get(ch, F[" "])  # unknown characters render as a blank cell
         for r, row in enumerate(g):
             for c, bit in enumerate(row):
                 if bit == "1":
@@ -144,8 +146,8 @@ def banner():
 .beam{{animation:flick 7s infinite}}
 .beam.r{{animation-delay:-2.3s}}
 @keyframes flick{{0%,100%{{opacity:1}}46%{{opacity:1}}47%{{opacity:.55}}48%{{opacity:1}}50%{{opacity:.7}}51%{{opacity:1}}}}
-.name{{animation:power 1.6s ease-out both}}
-@keyframes power{{0%{{opacity:0}}20%{{opacity:.9}}24%{{opacity:.2}}40%{{opacity:1}}55%{{opacity:.6}}70%,100%{{opacity:1}}}}
+.name{{animation:power 1.6s ease-out}}
+@keyframes power{{0%,70%,100%{{opacity:1}}12%{{opacity:.2}}24%{{opacity:1}}40%{{opacity:.35}}55%{{opacity:1}}}}
 .sweep{{animation:sweep 5.5s ease-in-out infinite}}
 @keyframes sweep{{0%{{transform:translateX(-300px)}}60%,100%{{transform:translateX(1300px)}}}}
 .live{{animation:blink 1.2s steps(2,start) infinite}}
@@ -185,20 +187,20 @@ def banner():
     # unlit LED grid behind the name
     p_big = 10
     name = "ILIASS EL GUAARI"
-    pat, rect = unlit_grid(115, 130, 980, 84, p_big, "#1A1608", "u1")
+    pat, rect = unlit_grid(115, 130, 980, 84, p_big, "#1F0A0C", "u1")
     defs.append(pat)
     g.append(rect)
     g.append(f'<g filter="url(#glow)" class="name">{led_text(name, 600, 140, p_big, AMBER, dot=8)}</g>')
     # top row: HOME / AWAY
     p_s = 3
-    away = "AWAY GRENOBLE 45.19°N"
+    away = "AVAILABLE JAN 2027"
     g.append(f'<g filter="url(#softglow)">'
-             f'{led_text("HOME OTTAWA 45.42°N", 118, 90, p_s, GREEN, anchor="start", dot=2.6)}'
+             f'{led_text("OTTAWA, ON · EN / FR", 118, 90, p_s, GREEN, anchor="start", dot=2.6)}'
              f'{led_text(away, 1082 - (text_cols(away) - 1) * p_s, 90, p_s, GREEN, anchor="start", dot=2.6)}'
              f'</g>')
     # centre live tag
     g.append(f'<circle class="live" cx="562" cy="99" r="5" fill="#FF3B3B"/>')
-    g.append(f'<g filter="url(#softglow)">{led_text("LIVE", 604, 90, p_s, "#FF5A5A", dot=2.6)}</g>')
+    g.append(f'<g filter="url(#softglow)">{led_text("LIVE", 604, 90, p_s, "#F4F8F2", dot=2.6)}</g>')
     # bottom subtitle
     sub = "SOFTWARE ENGINEERING · UOTTAWA"
     g.append(f'<g filter="url(#softglow)">{led_text(sub, 600, 240, 5, CHALK, dot=4)}</g>')
@@ -218,15 +220,15 @@ def banner():
 # ---------------------------------------------------------------- ticker.svg
 def ticker():
     W, H = 1200, 96
-    msg = ("   *  KICK-OFF: OPEN TO A WINTER 2027 SOFTWARE CO-OP   *   NOW SHOWING: SCOUTIQ + TRIPPILOT AI"
-           "   *   EN / FR   *   OTTAWA 45.42°N <> GRENOBLE 45.19°N   *   FULL TIME: NEVER, STILL BUILDING  ")
+    msg = ("   *   OPEN TO A WINTER 2027 SOFTWARE CO-OP   *   SOFTWARE ENGINEERING · UNIVERSITY OF OTTAWA"
+           "   *   JAVA · PYTHON · JAVASCRIPT   *   PROJECTS: SCOUTIQ · TRIPPILOT AI   *   ENGLISH / FRENCH  ")
     p = 6
     w_msg = len(msg) * 6 * p
     y0 = (H - 6 * p) / 2
     d = led_path(msg, 0, y0, p)
     speed = 90  # px per second
     dur = w_msg / speed
-    pat, rect = unlit_grid(p / 2, y0 - p * 2, W, 11 * p, p, "#18140A", "ut")
+    pat, rect = unlit_grid(p / 2, y0 - p * 2, W, 11 * p, p, "#1C0A0C", "ut")
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Scrolling scoreboard ticker: open to a Winter 2027 software co-op">
 <defs>{pat}
 <filter id="g" x="-5%" y="-40%" width="110%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -280,7 +282,7 @@ def starting_xi():
             f"{on + 3:.2f}%,{off:.2f}%{{fill:{AMBER};stroke:{AMBER};transform:scale(1)}}"
             f"100%{{fill:#0B1220;stroke:#F4F8F2}}}}"
             f".p{i}{{animation:f{i} {cycle}s infinite}}"
-            f"@keyframes t{i}{{0%,{on - 0.01:.2f}%{{fill:#9FB3A7}}{on:.2f}%,{off:.2f}%{{fill:#06090F}}100%{{fill:#9FB3A7}}}}"
+            f"@keyframes t{i}{{0%,{on - 0.01:.2f}%{{fill:#9FB3A7}}{on:.2f}%,{off:.2f}%{{fill:#FFFFFF}}100%{{fill:#9FB3A7}}}}"
             f".t{i}{{animation:t{i} {cycle}s infinite}}"
         )
     goal_t = (len(xi) * step + 0.6) / cycle * 100
@@ -335,12 +337,12 @@ def starting_xi():
             f'<animateMotion dur="{cycle}s" repeatCount="indefinite" calcMode="linear" '
             f'keyPoints="{";".join(kp)}" keyTimes="{";".join(kt)}" path="{d}"/></g>')
     goal_txt = (f'<g class="goal"><rect x="{px0 + pw - 330}" y="{py0 + 14}" width="300" height="46" rx="6" fill="{AMBER}"/>'
-                f'<text x="{px0 + pw - 180}" y="{py0 + 45}" text-anchor="middle" font-size="22" font-weight="900" letter-spacing="3" fill="#06090F">GOAL · SHIPPED</text></g>')
-    head = (f'<text x="{px0}" y="44" font-size="22" font-weight="900" letter-spacing="3" fill="{AMBER}">STARTING XI · 4-3-3</text>'
+                f'<text x="{px0 + pw - 180}" y="{py0 + 45}" text-anchor="middle" font-size="22" font-weight="900" letter-spacing="3" fill="#FFFFFF">GOAL · SHIPPED</text></g>')
+    head = (f'<text x="{px0}" y="44" font-size="22" font-weight="900" letter-spacing="3" fill="{AMBER}">TECH STACK · 4-3-3</text>'
             f'<text x="{px0 + pw}" y="44" text-anchor="end" font-size="14" letter-spacing="1.5" fill="#9FB3A7">FILLED IN THE ORDER OF  Formation.create433()  FROM SCOUTIQ</text>')
-    bench = (f'<text x="{px0}" y="{py0 + ph + 52}" font-size="15" font-weight="800" letter-spacing="2" fill="{AMBER}">BENCH · IN TRAINING</text>'
+    bench = (f'<text x="{px0}" y="{py0 + ph + 52}" font-size="15" font-weight="800" letter-spacing="2" fill="{AMBER}">CURRENTLY LEARNING</text>'
              + "".join(
-                 f'<g transform="translate({px0 + 230 + k * 170} {py0 + ph + 34})"><rect width="150" height="26" rx="13" fill="none" stroke="#9FB3A7" stroke-dasharray="4 4"/>'
+                 f'<g transform="translate({px0 + 270 + k * 170} {py0 + ph + 34})"><rect width="150" height="26" rx="13" fill="none" stroke="#9FB3A7" stroke-dasharray="4 4"/>'
                  f'<text x="75" y="18" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="{CHALK}">{n}</text></g>'
                  for k, n in enumerate(["SQL · POSTGRES", "REACT", "DOCKER"])))
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="My tech stack as a 4-3-3 starting eleven on a soccer pitch" font-family="'Segoe UI',Helvetica,Arial,sans-serif">
@@ -350,14 +352,15 @@ def starting_xi():
 {stripes}{lines}{lane}
 {"".join(players)}
 {ball}
-{goal_txt}
 {bench}
 </svg>'''
     open(f"{OUT}/starting-xi.svg", "w").write(svg)
 
 
-banner()
-ticker()
-starting_xi()
-for f in os.listdir(OUT):
-    print(f, os.path.getsize(f"{OUT}/{f}"))
+if __name__ == "__main__":
+    os.makedirs(OUT, exist_ok=True)
+    banner()
+    ticker()
+    starting_xi()
+    for f in ("banner.svg", "ticker.svg", "starting-xi.svg"):
+        print(f, os.path.getsize(f"{OUT}/{f}"))
