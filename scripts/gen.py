@@ -340,11 +340,11 @@ def starting_xi():
                 f'<text x="{px0 + pw - 180}" y="{py0 + 45}" text-anchor="middle" font-size="22" font-weight="900" letter-spacing="3" fill="#FFFFFF">GOAL · SHIPPED</text></g>')
     head = (f'<text x="{px0}" y="44" font-size="22" font-weight="900" letter-spacing="3" fill="{AMBER}">TECH STACK · 4-3-3</text>'
             f'<text x="{px0 + pw}" y="44" text-anchor="end" font-size="14" letter-spacing="1.5" fill="#9FB3A7">FILLED IN THE ORDER OF  Formation.create433()  FROM SCOUTIQ</text>')
-    bench = (f'<text x="{px0}" y="{py0 + ph + 52}" font-size="15" font-weight="800" letter-spacing="2" fill="{AMBER}">CURRENTLY LEARNING</text>'
+    bench = (f'<text x="{px0}" y="{py0 + ph + 52}" font-size="15" font-weight="800" letter-spacing="2" fill="{AMBER}">ALSO IN THE SQUAD</text>'
              + "".join(
                  f'<g transform="translate({px0 + 270 + k * 170} {py0 + ph + 34})"><rect width="150" height="26" rx="13" fill="none" stroke="#9FB3A7" stroke-dasharray="4 4"/>'
                  f'<text x="75" y="18" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="{CHALK}">{n}</text></g>'
-                 for k, n in enumerate(["SQL · POSTGRES", "REACT", "DOCKER"])))
+                 for k, n in enumerate(["SQL · POSTGRESQL", "SPRING", "REACT"])))
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="My tech stack as a 4-3-3 starting eleven on a soccer pitch" font-family="'Segoe UI',Helvetica,Arial,sans-serif">
 <style>{"".join(css)}</style>
 <rect width="{W}" height="{H}" rx="14" fill="{NIGHT}"/>

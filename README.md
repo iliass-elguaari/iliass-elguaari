@@ -43,6 +43,15 @@
   <img src="https://img.shields.io/badge/Bash-0B1220?style=for-the-badge&logo=gnubash&logoColor=4EAA25" alt="Bash"/>
   <img src="https://img.shields.io/badge/HTML5-0B1220?style=for-the-badge&logo=html5&logoColor=E34F26" alt="HTML5"/>
   <img src="https://img.shields.io/badge/CSS-0B1220?style=for-the-badge&logo=css&logoColor=2965F1" alt="CSS"/>
+  <img src="https://img.shields.io/badge/SQL-0B1220?style=for-the-badge&logo=postgresql&logoColor=FFFFFF" alt="SQL"/>
+</p>
+
+**Databases**
+
+<p>
+  <img src="https://img.shields.io/badge/PostgreSQL-0B1220?style=for-the-badge&logo=postgresql&logoColor=4169E1" alt="PostgreSQL"/>
+  <img src="https://img.shields.io/badge/SQLite-0B1220?style=for-the-badge&logo=sqlite&logoColor=4FC3F7" alt="SQLite"/>
+  <img src="https://img.shields.io/badge/Firebase-0B1220?style=for-the-badge&logo=firebase&logoColor=FFCA28" alt="Firebase"/>
 </p>
 
 **App development**
@@ -61,6 +70,7 @@
 **Frameworks, libraries & APIs**
 
 <p>
+  <img src="https://img.shields.io/badge/Spring-0B1220?style=for-the-badge&logo=spring&logoColor=6DB33F" alt="Spring"/>
   <img src="https://img.shields.io/badge/Streamlit-0B1220?style=for-the-badge&logo=streamlit&logoColor=FF4B4B" alt="Streamlit"/>
   <img src="https://img.shields.io/badge/OpenAI_API-0B1220?style=for-the-badge&logo=openaigym&logoColor=FFFFFF" alt="OpenAI API"/>
   <img src="https://img.shields.io/badge/Agno-0B1220?style=for-the-badge" alt="Agno"/>
@@ -71,8 +81,6 @@
   <img src="https://img.shields.io/badge/scikit--learn-0B1220?style=for-the-badge&logo=scikitlearn&logoColor=F7931E" alt="scikit-learn"/>
   <img src="https://img.shields.io/badge/Raylib-0B1220?style=for-the-badge&logo=raylib&logoColor=FFFFFF" alt="Raylib"/>
   <img src="https://img.shields.io/badge/DeepFace-0B1220?style=for-the-badge" alt="DeepFace"/>
-  <img src="https://img.shields.io/badge/Firebase-0B1220?style=for-the-badge&logo=firebase&logoColor=FFCA28" alt="Firebase"/>
-  <img src="https://img.shields.io/badge/SQLite-0B1220?style=for-the-badge&logo=sqlite&logoColor=4FC3F7" alt="SQLite"/>
   <img src="https://img.shields.io/badge/Jupyter-0B1220?style=for-the-badge&logo=jupyter&logoColor=F37626" alt="Jupyter"/>
 </p>
 
@@ -102,7 +110,6 @@
 **Currently learning**
 
 <p>
-  <img src="https://img.shields.io/badge/PostgreSQL-0B1220?style=for-the-badge&logo=postgresql&logoColor=4169E1" alt="PostgreSQL"/>
   <img src="https://img.shields.io/badge/Docker-0B1220?style=for-the-badge&logo=docker&logoColor=2496ED" alt="Docker"/>
 </p>
 
