@@ -6,11 +6,11 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+WINTER+2027+CO-OP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
+  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+CO-OP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
 </p>
 
 <p align="center">
-  <img src="assets/ticker.svg" alt="Open to a Winter 2027 software co-op" width="100%"/>
+  <img src="assets/ticker.svg" alt="Open to a Summer 2027 software co-op" width="100%"/>
 </p>
 
 ## 👋 About me
@@ -20,7 +20,7 @@
 - 🌐 Built websites for small businesses as a freelance web developer (Winter 2026)
 - ⚽ Soccer player and former **Canada Soccer** referee
 - 🗣️ Bilingual: **English and French**
-- 🎯 **Open to a Winter 2027 software co-op** (available January 2027)
+- 🎯 **Open to a Summer 2027 software co-op**
 
 ## 🔗 Connect
 
