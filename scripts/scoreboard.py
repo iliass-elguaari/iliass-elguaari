@@ -48,6 +48,7 @@ query($login: String!) {
     contributionsCollection {
       totalCommitContributions
       totalPullRequestContributions
+      restrictedContributionsCount
       contributionCalendar {
         totalContributions
         weeks { contributionDays { date contributionCount } }
@@ -93,7 +94,8 @@ def fetch_github():
         for e in repo["languages"]["edges"]:
             langs[e["node"]["name"]] = langs.get(e["node"]["name"], 0) + e["size"]
     return {
-        "contributions": cc["contributionCalendar"]["totalContributions"],
+        # private contributions are hidden from the Action's token; add their count back
+        "contributions": cc["contributionCalendar"]["totalContributions"] + cc["restrictedContributionsCount"],
         "streak": cur,
         "best_streak": best,
         "commits": cc["totalCommitContributions"],
@@ -123,7 +125,9 @@ def fetch_leetcode():
         raise RuntimeError("LeetCode user not found")
     ac = {x["difficulty"]: x["count"] for x in mu["submitStatsGlobal"]["acSubmissionNum"]}
     return {"solved": ac.get("All"), "easy": ac.get("Easy"), "medium": ac.get("Medium"),
-            "hard": ac.get("Hard"), "ranking": mu["profile"]["ranking"]}
+            "hard": ac.get("Hard"),
+            # LeetCode reports 5,000,001 for accounts it hasn't ranked yet
+            "ranking": mu["profile"]["ranking"] if (mu["profile"]["ranking"] or 0) < 5_000_000 else None}
 
 
 # ------------------------------------------------------------------ drawing
@@ -180,7 +184,7 @@ def draw(stats, updated):
     total = sum(v for _, v in langs) or 1
     top = langs[:5]
     other = total - sum(v for _, v in top)
-    if langs and other > 0:
+    if langs and round(100 * other / total) > 0:
         top.append(("OTHER", other))
     x = 60
     defs.append('<clipPath id="bar"><rect x="60" y="410" width="1080" height="22" rx="11"/></clipPath>')
