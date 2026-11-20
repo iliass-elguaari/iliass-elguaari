@@ -113,12 +113,12 @@
   <img src="https://img.shields.io/badge/Docker-0B1220?style=for-the-badge&logo=docker&logoColor=2496ED" alt="Docker"/>
 </p>
 
-## 🔌 Core stack
+## ⚛️ Stack reactor
 
-My core stack wired into one chip. Each pin lights up in turn while data flows in.
+Everything I build with, in orbit around one core: languages on the inner ring, frameworks and data in the middle, tools on the outside.
 
 <p align="center">
-  <img src="assets/stack.svg" alt="My core tech stack drawn as a chip pinout" width="100%"/>
+  <img src="assets/stack.svg" alt="My tech stack as rings of skills orbiting a glowing red reactor core" width="100%"/>
 </p>
 
 ## 🚀 Featured projects

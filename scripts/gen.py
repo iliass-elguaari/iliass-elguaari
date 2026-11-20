@@ -312,85 +312,90 @@ def ticker():
 
 # ---------------------------------------------------------------- stack.svg
 def stack_board():
-    """Core stack as a chip pinout. Pins light up one by one while data
-    pulses run along the traces into the chip."""
-    W, H = 1200, 560
-    CX0, CX1, CY0, CY1 = 480, 720, 110, 470
-    left = ["JAVA", "PYTHON", "JAVASCRIPT", "C", "SQL", "HTML / CSS"]
-    right = ["SPRING", "POSTGRESQL", "STREAMLIT", "OPENAI API", "GIT / GITHUB", "ANDROID"]
-    n = len(left)
-    ys = [CY0 + 40 + i * (CY1 - CY0 - 80) / (n - 1) for i in range(n)]
-    step = 0.9
-    cycle = step * (2 * n) + 3
-    css = []
-    order = []  # alternate left/right so the light zig-zags across the chip
-    for i in range(n):
-        order += [("L", i), ("R", i)]
-    for k, (side, i) in enumerate(order):
-        on = (k * step + .2) / cycle * 100
-        off = (cycle - .5) / cycle * 100
-        css.append(
-            f"@keyframes b{k}{{0%,{on - .01:.2f}%{{fill:#0C0D12;stroke:#2A2E3A}}{on:.2f}%{{fill:#5A0D16;stroke:#FF6B75}}"
-            f"{on + 4:.2f}%,{off:.2f}%{{fill:#2A0A0F;stroke:{AMBER}}}100%{{fill:#0C0D12;stroke:#2A2E3A}}}}.b{k}{{animation:b{k} {cycle}s infinite}}"
-            f"@keyframes t{k}{{0%,{on - .01:.2f}%{{fill:#9AA3B5}}{on:.2f}%,{off:.2f}%{{fill:#FFFFFF}}100%{{fill:#9AA3B5}}}}.t{k}{{animation:t{k} {cycle}s infinite}}"
-            f"@keyframes w{k}{{0%,{on - .01:.2f}%{{stroke:#3A0C12}}{on:.2f}%,{off:.2f}%{{stroke:{AMBER}}}100%{{stroke:#3A0C12}}}}.w{k}{{animation:w{k} {cycle}s infinite}}")
-    css.append(".pulse{stroke-dasharray:.08 .92;animation:pulse 2.4s linear infinite}"
-               "@keyframes pulse{from{stroke-dashoffset:0}to{stroke-dashoffset:-1}}"
-               ".halo{animation:halo 3s ease-in-out infinite}@keyframes halo{0%,100%{opacity:.6}50%{opacity:1}}")
-    idx = {o: k for k, o in enumerate(order)}
+    """Reactor: a pulsing red core with the name on it and three counter-
+    rotating rings of skills orbiting it. Labels counter-rotate so they
+    stay upright. Energy bolts fire from the core."""
+    import random
+    random.seed(9)
+    W, H = 1200, 700
+    cx, cy = 600, 350
+    rings = [
+        ((215, 118), 26, 1, ["JAVA", "PYTHON", "JAVASCRIPT", "C", "SQL"]),
+        ((375, 196), 40, -1, ["SPRING", "POSTGRESQL", "STREAMLIT", "OPENAI API", "ANDROID", "REACT"]),
+        ((530, 272), 56, 1, ["GIT", "GITHUB", "INTELLIJ", "VS CODE", "BASH", "HTML / CSS", "DOCKER"]),
+    ]
+    parts = []
+    # backdrop grid + rays
+    rays = "".join(
+        f'<line x1="{cx}" y1="{cy}" x2="{cx + 700 * math.cos(math.radians(a)):.0f}" y2="{cy + 700 * math.sin(math.radians(a)):.0f}" '
+        f'stroke="{AMBER}" stroke-opacity=".07" stroke-width="2"/>' for a in range(0, 360, 15))
+    parts.append(f'<g class="spin" style="animation-duration:120s">{rays}</g>')
 
-    body = [f'<rect width="{W}" height="{H}" rx="14" fill="#07080B"/>',
-            f'<rect width="{W}" height="{H}" rx="14" fill="url(#dots)"/>',
-            f'<ellipse class="halo" cx="600" cy="{(CY0 + CY1) / 2}" rx="330" ry="260" fill="url(#halo)"/>',
-            f'<text x="40" y="52" font-size="22" font-weight="900" letter-spacing="3" fill="{AMBER}">CORE STACK · PINOUT</text>',
-            f'<text x="{W - 40}" y="52" text-anchor="end" font-size="13" letter-spacing="1.5" fill="#6E7688">PINS LIGHT UP IN TURN · DATA FLOWS INTO THE CHIP</text>']
-    traces, labels = [], []
-    for side, names in (("L", left), ("R", right)):
-        for i, (nm, y) in enumerate(zip(names, ys)):
-            k = idx[(side, i)]
-            box_w, box_h = 250, 40
-            if side == "L":
-                bx = 70
-                x_box, x_pin = bx + box_w, CX0
-                jog = (y - (CY0 + CY1) / 2) * .18
-                d = f"M{x_box} {y + jog:.1f} L{x_box + 40} {y + jog:.1f} L{x_box + 40 + abs(jog):.1f} {y:.1f} L{x_pin} {y:.1f}"
-            else:
-                bx = W - 70 - box_w
-                x_box, x_pin = bx, CX1
-                jog = (y - (CY0 + CY1) / 2) * .18
-                d = f"M{x_box} {y + jog:.1f} L{x_box - 40} {y + jog:.1f} L{x_box - 40 - abs(jog):.1f} {y:.1f} L{x_pin} {y:.1f}"
-            by = y + jog - box_h / 2
-            traces.append(f'<path class="w{k}" d="{d}" stroke="#3A0C12" stroke-width="3" fill="none"/>')
-            traces.append(f'<path class="pulse" pathLength="1" d="{d}" stroke="#FF6B75" stroke-width="3" fill="none" '
-                          f'stroke-linecap="round" style="animation-delay:-{(k * .37) % 2.4:.2f}s"/>')
-            labels.append(f'<rect class="b{k}" x="{bx}" y="{by:.1f}" width="{box_w}" height="{box_h}" rx="6" fill="#0C0D12" stroke="#2A2E3A" stroke-width="2"/>'
-                          f'<text class="t{k}" x="{bx + box_w / 2}" y="{by + 26:.1f}" text-anchor="middle" font-size="15" '
-                          f'font-weight="800" letter-spacing="2.5" fill="#9AA3B5">{nm}</text>'
-                          f'<text x="{bx + (12 if side == "L" else box_w - 12)}" y="{by + 25:.1f}" text-anchor="{"start" if side == "L" else "end"}" '
-                          f'font-size="10" fill="#4C5366" font-family="monospace">{"P" if side == "L" else "Q"}{i + 1}</text>')
-    body.append(f'<g filter="url(#tglow)">{"".join(traces)}</g>')
-    body.append("".join(labels))
-    # chip
-    pins = "".join(f'<rect x="{CX0 - 10}" y="{y - 6:.1f}" width="10" height="12" fill="#9AA0AA"/>'
-                   f'<rect x="{CX1}" y="{y - 6:.1f}" width="10" height="12" fill="#9AA0AA"/>' for y in ys)
-    body.append(pins)
-    body.append(f'<rect x="{CX0}" y="{CY0}" width="{CX1 - CX0}" height="{CY1 - CY0}" rx="12" fill="url(#chip)" stroke="#2A2E3A" stroke-width="2"/>')
-    body.append(f'<circle cx="{CX0 + 22}" cy="{CY0 + 22}" r="6" fill="#20232D"/>')
-    mid = (CY0 + CY1) / 2
-    body.append(f'<g filter="url(#glow)">{led_text("CORE", 600, mid - 52, 6, AMBER, dot=5)}{led_text("STACK", 600, mid + 12, 6, AMBER, dot=5)}</g>')
-    body.append(led_text("U2 · IEG", 600, CY0 + 26, 2.4, "#6E7688", dot=2))
-    body.append(led_text("ALSO LOADING: DOCKER", 600, CY1 + 26, 2.4, "#6E7688", dot=2))
+    for ri, (r, dur, direction, names) in enumerate(rings):
+        rx, ry = r
+        ell = f"M{cx + rx} {cy} A{rx} {ry} 0 1 1 {cx - rx} {cy} A{rx} {ry} 0 1 1 {cx + rx} {cy}"
+        kp = 'keyPoints="0;1"' if direction > 0 else 'keyPoints="1;0"'
+        track = (f'<path class="flow" d="{ell}" fill="none" stroke="{AMBER}" stroke-opacity=".45" stroke-width="2" '
+                 f'stroke-dasharray="2 9" style="animation-duration:{dur / 4:.1f}s;animation-direction:{"normal" if direction > 0 else "reverse"}"/>')
+        comet = (f'<g><animateMotion dur="{dur / 1.6:.1f}s" repeatCount="indefinite" {kp} keyTimes="0;1" calcMode="linear" path="{ell}"/>'
+                 f'<circle r="9" fill="url(#coreglow)"/><circle r="4" fill="#FFFFFF" filter="url(#glow)"/></g>')
+        labels = []
+        for k, nm in enumerate(names):
+            phase = (k / len(names) + ri * .07) % 1
+            w = len(nm) * 9.2 + 26
+            labels.append(
+                f'<g><animateMotion dur="{dur}s" begin="-{phase * dur:.2f}s" repeatCount="indefinite" {kp} keyTimes="0;1" calcMode="linear" path="{ell}"/>'
+                f'<rect x="{-w / 2:.1f}" y="-15" width="{w:.1f}" height="30" rx="15" fill="#0B0C11" stroke="{AMBER}" stroke-width="2"/>'
+                f'<text y="5" text-anchor="middle" font-size="13" font-weight="800" letter-spacing="2" fill="#FFFFFF">{nm}</text></g>')
+        parts.append(track + comet + "".join(labels))
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="My core tech stack drawn as a chip pinout" font-family="'Segoe UI',Helvetica,Arial,sans-serif">
+    # energy bolts from the core to random points
+    bolts = []
+    for i in range(7):
+        a = random.uniform(0, 2 * math.pi)
+        pts = [(cx + 70 * math.cos(a), cy + 70 * math.sin(a))]
+        rr = 70
+        while rr < 240:
+            rr += random.uniform(25, 45)
+            aa = a + random.uniform(-.12, .12)
+            pts.append((cx + rr * math.cos(aa), cy + rr * math.sin(aa)))
+        d = "M" + " L".join(f"{x:.0f} {y:.0f}" for x, y in pts)
+        dur = random.choice([2.3, 2.9, 3.4, 4.1, 4.7])
+        bolts.append(f'<path class="bolt" d="{d}" stroke="#FFD6DA" stroke-width="2.2" fill="none" filter="url(#glow)" '
+                     f'style="animation-duration:{dur}s;animation-delay:-{random.uniform(0, dur):.2f}s"/>')
+    parts.insert(1, "".join(bolts))
+
+    # core
+    core = (f'<circle class="pulse" cx="{cx}" cy="{cy}" r="190" fill="url(#coreglow)"/>'
+            f'<circle cx="{cx}" cy="{cy}" r="78" fill="#120407" stroke="{AMBER}" stroke-width="3"/>'
+            f'<circle cx="{cx}" cy="{cy}" r="66" fill="none" stroke="{AMBER}" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="4 6">'
+            f'<animateTransform attributeName="transform" type="rotate" from="0 {cx} {cy}" to="-360 {cx} {cy}" dur="12s" repeatCount="indefinite"/></circle>'
+            f'<g filter="url(#glow)">{led_text("IEG", cx, cy - 20, 6, AMBER, dot=5)}</g>'
+            f'{led_text("CORE ONLINE", cx, cy + 34, 2, "#FFB3BA", dot=1.7)}')
+    parts.append(core)
+
+    head = (f'<text x="40" y="44" font-size="22" font-weight="900" letter-spacing="3" fill="{AMBER}">STACK REACTOR</text>'
+            f'<text x="{W - 40}" y="44" text-anchor="end" font-size="13" letter-spacing="1.5" fill="#6E7688">INNER: LANGUAGES · MIDDLE: FRAMEWORKS &amp; DATA · OUTER: TOOLS</text>')
+    css = (".spin{transform-origin:600px 350px;animation:spin 120s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}"
+           ".pulse{animation:pulse 2.2s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:.65}50%{opacity:1}}"
+           ".flow{animation:flow 10s linear infinite}@keyframes flow{to{stroke-dashoffset:-110}}"
+           ".bolt{opacity:0;animation:bolt 3s steps(1,end) infinite}@keyframes bolt{0%,88%,100%{opacity:0}89%{opacity:1}91%{opacity:.2}92%{opacity:.9}94%{opacity:0}}")
+    trails = "".join(
+        f'<linearGradient id="trail{i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="{AMBER}" stop-opacity="0"/></linearGradient>'
+        for i in range(3))
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="My tech stack as rings of skills orbiting a glowing red reactor core" font-family="'Segoe UI',Helvetica,Arial,sans-serif">
 <defs>
+<radialGradient id="bg" cx=".5" cy=".5" r=".7"><stop offset="0" stop-color="#1A070B"/><stop offset=".55" stop-color="#08080C"/><stop offset="1" stop-color="#040406"/></radialGradient>
 <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="#1B1D26"/></pattern>
-<radialGradient id="halo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{AMBER}" stop-opacity=".35"/><stop offset="1" stop-color="{AMBER}" stop-opacity="0"/></radialGradient>
-<linearGradient id="chip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#15171E"/><stop offset="1" stop-color="#0A0B10"/></linearGradient>
-<filter id="glow" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-<filter id="tglow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="coreglow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FF6B75" stop-opacity=".95"/><stop offset=".45" stop-color="{AMBER}" stop-opacity=".45"/><stop offset="1" stop-color="{AMBER}" stop-opacity="0"/></radialGradient>
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+{trails}
 </defs>
-<style>{"".join(css)}</style>
-{"".join(body)}
+<style>{css}</style>
+<rect width="{W}" height="{H}" rx="14" fill="url(#bg)"/>
+<rect width="{W}" height="{H}" rx="14" fill="url(#dots)"/>
+{head}
+{"".join(parts)}
 </svg>'''
     open(f"{OUT}/stack.svg", "w").write(svg)
 
