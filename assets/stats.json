@@ -1,20 +1,20 @@
 {
   "github": {
     "best_streak": 3,
-    "commits": 24,
-    "contributions": 29,
+    "commits": 26,
+    "contributions": 32,
     "languages": {
       "CSS": 41394,
       "HTML": 73272,
-      "Java": 35409,
+      "Java": 38317,
       "JavaScript": 18425,
-      "Python": 42502,
+      "Python": 44784,
       "Shell": 201
     },
     "prs": 1,
-    "repos": 5,
+    "repos": 6,
     "stars": 1,
-    "streak": 1
+    "streak": 2
   },
   "leetcode": {
     "easy": 2,
