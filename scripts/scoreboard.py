@@ -162,7 +162,7 @@ def draw(stats, updated):
 
     body.append(f'<rect width="{W}" height="{H}" rx="14" fill="#06090F"/>')
     body.append(f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="14" fill="none" stroke="#2A3445" stroke-width="2"/>')
-    body.append(f'<g filter="url(#sg)">{led_text("SEASON STATS", 60, 30, 4, RED, anchor="start", dot=3.3)}</g>')
+    body.append(f'<g filter="url(#sg)">{led_text("LIVE STATS", 60, 30, 4, RED, anchor="start", dot=3.3)}</g>')
     body.append(label(f"UPDATED {updated}", W - 60, 50, anchor="end"))
     body.append('<rect x="60" y="72" width="1080" height="1.5" fill="#1E2633"/>')
 

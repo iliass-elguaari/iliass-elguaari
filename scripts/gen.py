@@ -1,7 +1,7 @@
 """Generates the animated SVG assets for iliass-elguaari's profile README.
 
-Theme: "Floodlights" — a night match. Red LED stadium scoreboard
-(the red of a referee's card) over a floodlit pitch.
+Theme: red circuit board. Traces, a chip with the name on it, and the core
+stack drawn as the chip's pinout. Run: python3 scripts/gen.py assets
 """
 import math
 import os
@@ -114,165 +114,166 @@ def unlit_grid(x, y, w, h, pitch, color, pid):
 
 # ---------------------------------------------------------------- banner.svg
 def banner():
-    """Stadium 'lights on' intro: blackout, floodlights bang on bank by bank,
-    the LED name slams onto the board with a red flash, then the crowd keeps
-    flashing cameras. Final state is the base style, so a paused or
-    non-animating viewer still sees the finished banner."""
+    """Red circuit board: traces draw themselves in from the edges, the chip
+    powers on, the name glitches in, then data pulses keep flowing into the
+    chip. Base styles are the finished state, so a viewer that doesn't
+    animate still shows the full banner."""
     import random
+    random.seed(4)
     W, H = 1200, 420
-    random.seed(11)
-    T = 7  # intro length in seconds (plays once per page load)
+    T = 6
+    CX0, CX1, CY0, CY1 = 280, 920, 118, 302  # chip body
+    RED_HI = "#FF6B75"
     defs, body = [], []
 
     defs.append(f'''
-<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="#020306"/><stop offset=".55" stop-color="#090D16"/><stop offset="1" stop-color="#14070A"/>
-</linearGradient>
-<radialGradient id="bloom" cx=".5" cy=".5" r=".5">
-  <stop offset="0" stop-color="#FFFFFF"/><stop offset=".25" stop-color="#FFF4D8" stop-opacity=".9"/><stop offset="1" stop-color="#FFF4D8" stop-opacity="0"/>
+<radialGradient id="bg" cx=".5" cy=".45" r=".75">
+  <stop offset="0" stop-color="#140A0D"/><stop offset=".6" stop-color="#08080C"/><stop offset="1" stop-color="#040406"/>
 </radialGradient>
-<linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="#FFF6DD" stop-opacity=".42"/><stop offset=".7" stop-color="#FFF6DD" stop-opacity=".06"/><stop offset="1" stop-color="#FFF6DD" stop-opacity="0"/>
-</linearGradient>
-<radialGradient id="redglow" cx=".5" cy=".5" r=".5">
-  <stop offset="0" stop-color="{AMBER}" stop-opacity=".9"/><stop offset=".55" stop-color="{AMBER}" stop-opacity=".25"/><stop offset="1" stop-color="{AMBER}" stop-opacity="0"/>
+<pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="#1B1D26"/></pattern>
+<radialGradient id="halo" cx=".5" cy=".5" r=".5">
+  <stop offset="0" stop-color="{AMBER}" stop-opacity=".55"/><stop offset=".6" stop-color="{AMBER}" stop-opacity=".12"/><stop offset="1" stop-color="{AMBER}" stop-opacity="0"/>
 </radialGradient>
-<linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="#0D1118"/><stop offset="1" stop-color="#04060A"/>
+<linearGradient id="chip" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#15171E"/><stop offset="1" stop-color="#0A0B10"/>
 </linearGradient>
-<linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
-  <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
-</linearGradient>
-<linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="#0F5A3A"/><stop offset="1" stop-color="#041A10"/>
-</linearGradient>
-<filter id="glow" x="-10%" y="-40%" width="120%" height="180%">
-  <feGaussianBlur stdDeviation="4" result="b"/>
+<filter id="glow" x="-20%" y="-60%" width="140%" height="220%">
+  <feGaussianBlur stdDeviation="3.5" result="b"/>
   <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
 </filter>
-<filter id="softglow" x="-10%" y="-50%" width="120%" height="200%">
-  <feGaussianBlur stdDeviation="1.6" result="b"/>
+<filter id="tglow" x="-5%" y="-5%" width="110%" height="110%">
+  <feGaussianBlur stdDeviation="2" result="b"/>
   <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-</filter>
-<clipPath id="screen"><rect x="160" y="96" width="880" height="214" rx="6"/></clipPath>
-<pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".22"/></pattern>''')
+</filter>''')
 
     css = f'''
-.blackout{{opacity:0;animation:bo {T}s ease-out}}
-@keyframes bo{{0%,10%{{opacity:1}}20%{{opacity:.85}}30%{{opacity:.55}}42%,100%{{opacity:0}}}}
-.bankL{{animation:bankL {T}s linear}}
-@keyframes bankL{{0%,12%{{opacity:0}}12.5%{{opacity:1}}100%{{opacity:1}}}}
-.bankR{{animation:bankR {T}s linear}}
-@keyframes bankR{{0%,21%{{opacity:0}}21.5%{{opacity:1}}100%{{opacity:1}}}}
-.bloomL{{opacity:0;animation:bloomL {T}s ease-out}}
-@keyframes bloomL{{0%,12%{{opacity:0}}13%{{opacity:1}}24%,100%{{opacity:0}}}}
-.bloomR{{opacity:0;animation:bloomR {T}s ease-out}}
-@keyframes bloomR{{0%,21%{{opacity:0}}22%{{opacity:1}}33%,100%{{opacity:0}}}}
-.board{{animation:board {T}s linear}}
-@keyframes board{{0%,30%{{opacity:.15}}31%{{opacity:.6}}32%{{opacity:.2}}34%,100%{{opacity:1}}}}
-.name{{transform-origin:600px 175px;animation:slam {T}s cubic-bezier(.2,1.6,.4,1)}}
-@keyframes slam{{0%,44%{{opacity:0;transform:scale(1.6)}}45%{{opacity:1;transform:scale(1.25)}}52%,100%{{opacity:1;transform:scale(1)}}}}
+.blackout{{opacity:0;animation:bo {T}s linear}}
+@keyframes bo{{0%,6%{{opacity:1}}14%,100%{{opacity:0}}}}
+.draw{{stroke-dasharray:1;stroke-dashoffset:0;animation:draw {T}s cubic-bezier(.6,0,.3,1)}}
+@keyframes draw{{0%,8%{{stroke-dashoffset:1}}42%,100%{{stroke-dashoffset:0}}}}
+.via{{animation:via {T}s linear}}
+@keyframes via{{0%,10%{{opacity:0}}16%,100%{{opacity:1}}}}
+.chipon{{animation:chipon {T}s linear}}
+@keyframes chipon{{0%,40%{{opacity:.15}}43%{{opacity:1}}45%{{opacity:.3}}48%,100%{{opacity:1}}}}
+.halo{{animation:halo 3s ease-in-out infinite}}
+@keyframes halo{{0%,100%{{opacity:.65}}50%{{opacity:1}}}}
 .flash{{opacity:0;animation:flash {T}s ease-out}}
-@keyframes flash{{0%,45%{{opacity:0}}46%{{opacity:.75}}60%,100%{{opacity:0}}}}
-.sub{{animation:sub {T}s ease-out}}
-@keyframes sub{{0%,55%{{opacity:0}}62%,100%{{opacity:1}}}}
-.beam{{animation:flick 9s infinite}}
-.beam.r{{animation-delay:-3.1s}}
-@keyframes flick{{0%,100%{{opacity:1}}46%{{opacity:1}}47%{{opacity:.6}}48%{{opacity:1}}50%{{opacity:.75}}51%{{opacity:1}}}}
-.cam{{opacity:0;animation:cam 4s infinite}}
-@keyframes cam{{0%,94%,100%{{opacity:0}}95%{{opacity:1}}97%{{opacity:.3}}}}
-.sweep{{animation:sweep 5s ease-in-out infinite}}
-@keyframes sweep{{0%{{transform:translateX(-300px)}}60%,100%{{transform:translateX(1300px)}}}}
-.live{{animation:blink 1.1s steps(2,start) infinite}}
+@keyframes flash{{0%,47%{{opacity:0}}48%{{opacity:.55}}62%,100%{{opacity:0}}}}
+.name{{animation:nm {T}s steps(1,end)}}
+@keyframes nm{{0%,47%{{opacity:0}}48%{{opacity:1;transform:translate(-14px,0)}}50%{{transform:translate(9px,-3px)}}52%{{opacity:.3;transform:translate(-4px,2px)}}54%{{opacity:1;transform:translate(3px,0)}}56%,100%{{opacity:1;transform:translate(0,0)}}}}
+.ghostA{{opacity:0;animation:ga {T}s steps(1,end)}}
+@keyframes ga{{0%,47%{{opacity:0}}48%{{opacity:.8;transform:translate(10px,-2px)}}51%{{transform:translate(-8px,3px)}}54%{{opacity:.6;transform:translate(5px,0)}}57%,100%{{opacity:0}}}}
+.ghostB{{opacity:0;animation:gb {T}s steps(1,end)}}
+@keyframes gb{{0%,47%{{opacity:0}}48%{{opacity:.7;transform:translate(-12px,3px)}}51%{{transform:translate(7px,-2px)}}54%{{opacity:.5;transform:translate(-3px,0)}}57%,100%{{opacity:0}}}}
+.late{{animation:late {T}s ease-out}}
+@keyframes late{{0%,56%{{opacity:0}}66%,100%{{opacity:1}}}}
+.pulse{{stroke-dasharray:.06 .94;animation:pulse 2.6s linear infinite}}
+@keyframes pulse{{from{{stroke-dashoffset:0}}to{{stroke-dashoffset:-1}}}}
+.glitch{{animation:glitch 7s steps(1,end) infinite}}
+@keyframes glitch{{0%,93%,100%{{transform:translate(0,0)}}94%{{transform:translate(6px,0)}}95%{{transform:translate(-4px,1px)}}96%{{transform:translate(2px,0)}}}}
+.blink{{animation:blink 1.1s steps(2,start) infinite}}
 @keyframes blink{{to{{visibility:hidden}}}}
-.pulse{{animation:pulse 2.4s ease-in-out infinite}}
-@keyframes pulse{{0%,100%{{opacity:.55}}50%{{opacity:1}}}}
 '''
 
-    body.append(f'<rect width="{W}" height="{H}" fill="url(#sky)"/>')
-    # stars
-    body.append("".join(f'<circle cx="{random.randint(0, W)}" cy="{random.randint(0, 70)}" r="{random.choice([.6, .9])}" fill="#fff" opacity="{random.choice([.25, .45])}"/>' for _ in range(40)))
+    body.append(f'<rect width="{W}" height="{H}" fill="url(#bg)"/>')
+    body.append(f'<rect width="{W}" height="{H}" fill="url(#dots)"/>')
+    body.append(f'<ellipse class="halo" cx="600" cy="210" rx="520" ry="230" fill="url(#halo)"/>')
 
-    # crowd bowl: two tiers of dim heads
-    crowd = []
-    for row in range(9):
-        y = 150 + row * 13
-        for x in range(4 + (row % 2) * 6, W, 12):
-            crowd.append(f"M{x} {y}h0")
-    body.append(f'<path d="M0 140 L1200 140 L1200 270 L0 270Z" fill="#0B0F17"/>')
-    body.append(f'<path d="{"".join(crowd)}" stroke="#1C2230" stroke-width="7" stroke-linecap="round"/>')
-    # camera flashes in the crowd
-    flashes = []
-    for _ in range(46):
-        x = random.randint(10, W - 10)
-        y = random.randint(146, 262)
-        if 150 < x < 1050 and y < 320:  # mostly hidden behind the board; still nice at the edges
-            if random.random() < .55:
-                continue
-        dur = random.choice([2.7, 3.3, 3.9, 4.6, 5.2, 6.1])
-        flashes.append(f'<g class="cam" style="animation-duration:{dur}s;animation-delay:-{random.uniform(0, dur):.2f}s">'
-                       f'<circle cx="{x}" cy="{y}" r="7" fill="url(#bloom)"/><circle cx="{x}" cy="{y}" r="1.8" fill="#fff"/></g>')
-    body.append("".join(flashes))
+    # ------------------------------------------------ traces (edge -> chip pin)
+    traces, vias = [], []
 
-    # floodlight beams (on after their bank ignites)
-    body.append('<g class="bankL"><path class="beam" d="M70 40 L470 420 L170 420Z" fill="url(#beam)"/></g>')
-    body.append('<g class="bankR"><path class="beam r" d="M1130 40 L1030 420 L730 420Z" fill="url(#beam)"/></g>')
-    # towers
-    for x, cls in ((70, "L"), (1130, "R")):
-        lamps = "".join(f'<rect x="{-30 + c * 13}" y="{14 + r * 14}" width="10" height="10" rx="2" fill="#FFF6D6"/>'
-                        for r in range(3) for c in range(5))
-        body.append(f'<g transform="translate({x} 0)"><path d="M-3 60 L3 60 L7 {H} L-7 {H}Z" fill="#161C28"/>'
-                    f'<rect x="-34" y="10" width="68" height="46" rx="3" fill="#161C28"/>'
-                    f'<g fill="#3A3F4A">{lamps.replace("#FFF6D6", "#3A3F4A")}</g>'
-                    f'<g class="bank{cls}">{lamps}</g>'
-                    f'<circle class="bloom{cls}" cx="0" cy="33" r="160" fill="url(#bloom)"/></g>')
+    def route_vertical(px, top):
+        sgn = -1 if top else 1
+        y_pin = CY0 if top else CY1
+        side = 1 if px > 600 else -1
+        k = abs(px - 600) / 300
+        y1 = y_pin + sgn * (16 + 10 * k)
+        shift = side * (20 + 70 * k)
+        y2 = y1 + sgn * abs(shift)
+        x2 = px + shift
+        end_y = -10 if top else H + 10
+        if random.random() < .35:  # stop at a via instead of the edge
+            end_y = (random.randint(18, 45) if top else random.randint(H - 50, H - 18))
+            vias.append((x2, end_y))
+        return f"M{x2:.0f} {end_y} L{x2:.0f} {y2:.0f} L{px:.0f} {y1:.0f} L{px:.0f} {y_pin}"
 
-    # pitch
-    body.append(f'<rect x="0" y="340" width="{W}" height="80" fill="url(#grass)"/>')
-    for i in range(0, 12, 2):
-        body.append(f'<rect x="{i * 100}" y="340" width="100" height="80" fill="#000" opacity=".12"/>')
-    body.append(f'<rect x="0" y="340" width="{W}" height="2" fill="{CHALK}" opacity=".55"/>')
-    body.append(f'<path d="M600 342 V420" stroke="{CHALK}" stroke-opacity=".45" stroke-width="2"/>')
-    body.append(f'<ellipse cx="600" cy="420" rx="120" ry="34" fill="none" stroke="{CHALK}" stroke-opacity=".45" stroke-width="2"/>')
-    body.append(f'<ellipse class="pulse" cx="600" cy="352" rx="520" ry="26" fill="url(#redglow)" opacity=".7"/>')
+    def route_horizontal(py, left):
+        sgn = -1 if left else 1
+        x_pin = CX0 if left else CX1
+        side = 1 if py > 210 else -1
+        k = abs(py - 210) / 90
+        x1 = x_pin + sgn * (18 + 14 * k)
+        shift = side * (14 + 40 * k)
+        x2 = x1 + sgn * abs(shift)
+        y2 = py + shift
+        end_x = -10 if left else W + 10
+        if random.random() < .3:
+            end_x = (random.randint(120, 220) if left else random.randint(W - 220, W - 120))
+            vias.append((end_x, y2))
+        return f"M{end_x} {y2:.0f} L{x2:.0f} {y2:.0f} L{x1:.0f} {py:.0f} L{x_pin} {py:.0f}"
 
-    # scoreboard
-    board = []
-    board.append(f'<ellipse class="pulse" cx="600" cy="205" rx="660" ry="210" fill="url(#redglow)"/>')
-    board.append('<rect x="585" y="324" width="12" height="20" fill="#161C28"/><rect x="603" y="324" width="12" height="20" fill="#161C28"/>')
-    board.append(f'<rect x="144" y="80" width="912" height="246" rx="14" fill="#141A24" stroke="#2A3445" stroke-width="2"/>')
-    board.append(f'<rect x="160" y="96" width="880" height="214" rx="6" fill="url(#panel)"/>')
-    for bx, by in ((156, 92), (1044, 92), (156, 314), (1044, 314)):
-        board.append(f'<circle cx="{bx}" cy="{by}" r="3.5" fill="#3A4558"/>')
-    g = []
-    p_big = 9
+    pins = []
+    for px in range(CX0 + 40, CX1 - 20, 40):
+        traces.append(route_vertical(px, True)); pins.append((px, CY0, "v"))
+        traces.append(route_vertical(px, False)); pins.append((px, CY1, "v"))
+    for py in range(CY0 + 26, CY1 - 10, 26):
+        traces.append(route_horizontal(py, True)); pins.append((CX0, py, "h"))
+        traces.append(route_horizontal(py, False)); pins.append((CX1, py, "h"))
+
+    tr = []
+    for i, d in enumerate(traces):
+        tr.append(f'<path class="draw" pathLength="1" d="{d}" stroke="#6B1520" stroke-width="3" fill="none" stroke-linejoin="round"/>')
+    body.append(f'<g>{"".join(tr)}</g>')
+    pulses = []
+    for i, d in enumerate(traces):
+        if random.random() < .55:
+            dur = random.choice([1.8, 2.2, 2.6, 3.1, 3.7, 4.4])
+            pulses.append(f'<path class="pulse" pathLength="1" d="{d}" stroke="{RED_HI}" stroke-width="3" fill="none" '
+                          f'stroke-linecap="round" style="animation-duration:{dur}s;animation-delay:-{random.uniform(0, dur):.2f}s"/>')
+    body.append(f'<g class="late" filter="url(#tglow)">{"".join(pulses)}</g>')
+    body.append('<g class="via">' + "".join(
+        f'<circle cx="{x:.0f}" cy="{y:.0f}" r="6" fill="#08080C" stroke="#7A1A24" stroke-width="3"/>' for x, y in vias) + '</g>')
+
+    # ------------------------------------------------ chip
+    chip = []
+    for x, y, o in pins:
+        if o == "v":
+            chip.append(f'<rect x="{x - 6}" y="{y - (10 if y == CY0 else 0)}" width="12" height="10" fill="#9AA0AA"/>')
+        else:
+            chip.append(f'<rect x="{x - (10 if x == CX0 else 0)}" y="{y - 6}" width="10" height="12" fill="#9AA0AA"/>')
+    chip.append(f'<rect x="{CX0}" y="{CY0}" width="{CX1 - CX0}" height="{CY1 - CY0}" rx="10" fill="url(#chip)" stroke="#2A2E3A" stroke-width="2"/>')
+    chip.append(f'<circle cx="{CX0 + 22}" cy="{CY0 + 22}" r="6" fill="#20232D"/>')
+    body.append(f'<g class="chipon">{"".join(chip)}</g>')
+
     name = "ILIASS EL GUAARI"
-    w_name = (text_cols(name) - 1) * p_big
-    x0 = 600 - w_name / 2
-    pat, rect = unlit_grid(x0, 148, w_name + p_big, 72, p_big, "#200A0D", "u1")
-    defs.append(pat)
-    g.append(rect)
-    g.append(f'<g class="name"><g filter="url(#glow)">{led_text(name, 600, 156, p_big, AMBER, dot=8)}</g></g>')
-    p_s = 3
-    left, right = "OTTAWA, ON · EN / FR", "SUMMER 2027 CO-OP"
-    g.append(f'<g filter="url(#softglow)">'
-             f'{led_text(left, 180, 114, p_s, GREEN, anchor="start", dot=2.6)}'
-             f'{led_text(right, 1020 - (text_cols(right) - 1) * p_s, 114, p_s, GREEN, anchor="start", dot=2.6)}</g>')
-    g.append(f'<circle class="live" cx="596" cy="123" r="5" fill="#FF3B3B"/>')
-    g.append(f'<g filter="url(#softglow)">{led_text("LIVE", 642, 114, p_s, "#F4F8F2", dot=2.6)}</g>')
-    g.append('<rect x="176" y="250" width="848" height="1.5" fill="#2A3445"/>')
-    g.append(f'<g class="sub" filter="url(#softglow)">{led_text("SOFTWARE ENGINEERING · UOTTAWA", 600, 264, 4.4, CHALK, dot=3.5)}</g>')
-    g.append('<rect class="sweep" x="0" y="96" width="220" height="214" fill="url(#sweep)"/>')
-    board.append(f'<g clip-path="url(#screen)">{"".join(g)}</g>')
-    board.append('<rect x="160" y="96" width="880" height="214" rx="6" fill="url(#scan)"/>')
-    body.append(f'<g class="board">{"".join(board)}</g>')
+    p = 6
+    def name_path(color, cls):
+        d = led_path(name, 600 - (text_cols(name) - 1) * p / 2, 168, p)
+        return (f'<path class="{cls}" d="{d}" stroke="{color}" stroke-width="{p * .82:g}" '
+                f'stroke-linecap="square" fill="none"/>')
+    body.append(f'<g class="ghostA">{name_path("#FFFFFF", "")}</g>')
+    body.append(f'<g class="ghostB">{name_path("#00E5FF", "")}</g>')
+    body.append(f'<g class="name"><g class="glitch" filter="url(#glow)">{name_path(AMBER, "")}</g></g>')
 
-    # intro overlays
+    small = 2.6
+    top = "U1 · ILIASS-ELGUAARI · REV 2026"
+    sub = "SOFTWARE ENGINEERING · UOTTAWA"
+    body.append(f'<g class="late">'
+                f'{led_text(top, 600, 136, small, "#8A93A6", dot=2.2)}'
+                f'<circle class="blink" cx="{CX1 - 26}" cy="{CY0 + 22}" r="5" fill="{AMBER}"/>'
+                f'<g filter="url(#tglow)">{led_text(sub, 600, 252, 3, CHALK, dot=2.6)}</g>'
+                f'</g>')
+    # silkscreen labels on the board
+    body.append(f'<g class="late">'
+                f'{led_text("OTTAWA, ON · EN / FR", 34, H - 34, 2.4, "#6E7688", anchor="start", dot=2)}'
+                f'{led_text("SUMMER 2027 CO-OP", W - 34 - (text_cols("SUMMER 2027 CO-OP") - 1) * 2.4, H - 34, 2.4, AMBER, anchor="start", dot=2)}'
+                f'</g>')
+
     body.append(f'<rect class="flash" width="{W}" height="{H}" fill="{AMBER}"/>')
     body.append(f'<rect class="blackout" width="{W}" height="{H}" fill="#000"/>')
 
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
-           f'aria-label="Iliass El Guaari, Software Engineering at uOttawa, on a floodlit stadium scoreboard">'
+           f'aria-label="Iliass El Guaari, Software Engineering at uOttawa, on a red circuit board">'
            f'<defs>{"".join(defs)}</defs><style>{css}</style>{"".join(body)}</svg>')
     open(f"{OUT}/banner.svg", "w").write(svg)
 
@@ -289,7 +290,7 @@ def ticker():
     speed = 90  # px per second
     dur = w_msg / speed
     pat, rect = unlit_grid(p / 2, y0 - p * 2, W, 11 * p, p, "#1C0A0C", "ut")
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Scrolling scoreboard ticker: open to a Summer 2027 software co-op">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Scrolling LED ticker: open to a Summer 2027 software co-op">
 <defs>{pat}
 <filter id="g" x="-5%" y="-40%" width="110%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <linearGradient id="fade" x1="0" x2="1"><stop offset="0" stop-color="#05070B"/><stop offset=".06" stop-color="#05070B" stop-opacity="0"/><stop offset=".94" stop-color="#05070B" stop-opacity="0"/><stop offset="1" stop-color="#05070B"/></linearGradient>
@@ -309,118 +310,95 @@ def ticker():
     open(f"{OUT}/ticker.svg", "w").write(svg)
 
 
-# ---------------------------------------------------------------- starting-xi.svg
-def starting_xi():
-    W, H = 1200, 700
-    px0, py0, pw, ph = 60, 70, 1080, 540  # pitch rect
-    # 4-3-3 attacking left→right. Order = ScoutIQ Formation.create433()
-    # (GK, LB, CB1, CB2, RB, CM1, CM2, CAM, LW, ST, RW).
-    xi = [
-        ("GK", "GIT", 0.07, 0.50),
-        ("LB", "HTML", 0.27, 0.14),
-        ("CB", "JAVA", 0.24, 0.38),
-        ("CB", "PYTHON", 0.24, 0.62),
-        ("RB", "CSS", 0.27, 0.86),
-        ("CM", "OOP", 0.50, 0.30),
-        ("CM", "DSA", 0.50, 0.70),
-        ("CAM", "JAVASCRIPT", 0.62, 0.50),
-        ("LW", "STREAMLIT", 0.80, 0.16),
-        ("ST", "OPENAI API", 0.86, 0.50),
-        ("RW", "GITHUB", 0.80, 0.84),
-    ]
-    pts = [(px0 + fx * pw, py0 + fy * ph) for _, _, fx, fy in xi]
-    step = 1.0
-    cycle = step * (len(xi) + 3)  # 11 fills, shot, hold
-
-    css = [f".p{{transform-box:fill-box;transform-origin:center}}"]
-    for i in range(len(xi)):
-        on = (i * step + 0.35) / cycle * 100
-        off = (cycle - 0.4) / cycle * 100
+# ---------------------------------------------------------------- stack.svg
+def stack_board():
+    """Core stack as a chip pinout. Pins light up one by one while data
+    pulses run along the traces into the chip."""
+    W, H = 1200, 560
+    CX0, CX1, CY0, CY1 = 480, 720, 110, 470
+    left = ["JAVA", "PYTHON", "JAVASCRIPT", "C", "SQL", "HTML / CSS"]
+    right = ["SPRING", "POSTGRESQL", "STREAMLIT", "OPENAI API", "GIT / GITHUB", "ANDROID"]
+    n = len(left)
+    ys = [CY0 + 40 + i * (CY1 - CY0 - 80) / (n - 1) for i in range(n)]
+    step = 0.9
+    cycle = step * (2 * n) + 3
+    css = []
+    order = []  # alternate left/right so the light zig-zags across the chip
+    for i in range(n):
+        order += [("L", i), ("R", i)]
+    for k, (side, i) in enumerate(order):
+        on = (k * step + .2) / cycle * 100
+        off = (cycle - .5) / cycle * 100
         css.append(
-            f"@keyframes f{i}{{0%,{on - 0.01:.2f}%{{fill:#0B1220;stroke:#F4F8F2}}"
-            f"{on:.2f}%{{fill:{AMBER};stroke:{AMBER};transform:scale(1.35)}}"
-            f"{on + 3:.2f}%,{off:.2f}%{{fill:{AMBER};stroke:{AMBER};transform:scale(1)}}"
-            f"100%{{fill:#0B1220;stroke:#F4F8F2}}}}"
-            f".p{i}{{animation:f{i} {cycle}s infinite}}"
-            f"@keyframes t{i}{{0%,{on - 0.01:.2f}%{{fill:#9FB3A7}}{on:.2f}%,{off:.2f}%{{fill:#FFFFFF}}100%{{fill:#9FB3A7}}}}"
-            f".t{i}{{animation:t{i} {cycle}s infinite}}"
-        )
-    goal_t = (len(xi) * step + 0.6) / cycle * 100
-    css.append(f"@keyframes net{{0%,{goal_t:.2f}%{{opacity:0}}{goal_t + 1:.2f}%{{opacity:1}}{goal_t + 14:.2f}%{{opacity:1}}{goal_t + 16:.2f}%,100%{{opacity:0}}}}.goal{{animation:net {cycle}s infinite}}")
-    css.append(f"@keyframes ripple{{0%,{goal_t:.2f}%{{transform:translateX(0)}}{goal_t + 2:.2f}%{{transform:translateX(10px)}}{goal_t + 5:.2f}%,100%{{transform:translateX(0)}}}}.netr{{animation:ripple {cycle}s infinite;transform-box:fill-box}}")
+            f"@keyframes b{k}{{0%,{on - .01:.2f}%{{fill:#0C0D12;stroke:#2A2E3A}}{on:.2f}%{{fill:#5A0D16;stroke:#FF6B75}}"
+            f"{on + 4:.2f}%,{off:.2f}%{{fill:#2A0A0F;stroke:{AMBER}}}100%{{fill:#0C0D12;stroke:#2A2E3A}}}}.b{k}{{animation:b{k} {cycle}s infinite}}"
+            f"@keyframes t{k}{{0%,{on - .01:.2f}%{{fill:#9AA3B5}}{on:.2f}%,{off:.2f}%{{fill:#FFFFFF}}100%{{fill:#9AA3B5}}}}.t{k}{{animation:t{k} {cycle}s infinite}}"
+            f"@keyframes w{k}{{0%,{on - .01:.2f}%{{stroke:#3A0C12}}{on:.2f}%,{off:.2f}%{{stroke:{AMBER}}}100%{{stroke:#3A0C12}}}}.w{k}{{animation:w{k} {cycle}s infinite}}")
+    css.append(".pulse{stroke-dasharray:.08 .92;animation:pulse 2.4s linear infinite}"
+               "@keyframes pulse{from{stroke-dashoffset:0}to{stroke-dashoffset:-1}}"
+               ".halo{animation:halo 3s ease-in-out infinite}@keyframes halo{0%,100%{opacity:.6}50%{opacity:1}}")
+    idx = {o: k for k, o in enumerate(order)}
 
-    # ball path through the 11 spots, then a shot into the goal
-    goal = (px0 + pw + 18, py0 + ph / 2 - 20)
-    path_pts = pts + [goal, goal]
-    d = "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in path_pts)
-    seg = [math.dist(path_pts[i], path_pts[i + 1]) for i in range(len(path_pts) - 1)]
-    total = sum(seg)
-    # keyPoints at arrival of each node; time uniformly stepped per pass
-    kp, kt, acc = ["0"], ["0"], 0
-    for i, s in enumerate(seg[:-1]):
-        acc += s
-        kp.append(f"{acc / total:.4f}")
-        kt.append(f"{min((i + 1) * step / cycle, 1):.4f}")
-    kp.append("1")
-    kt.append("1")
-    # hold during the end: make last segment zero (goal->goal) so kp stays at goal
+    body = [f'<rect width="{W}" height="{H}" rx="14" fill="#07080B"/>',
+            f'<rect width="{W}" height="{H}" rx="14" fill="url(#dots)"/>',
+            f'<ellipse class="halo" cx="600" cy="{(CY0 + CY1) / 2}" rx="330" ry="260" fill="url(#halo)"/>',
+            f'<text x="40" y="52" font-size="22" font-weight="900" letter-spacing="3" fill="{AMBER}">CORE STACK · PINOUT</text>',
+            f'<text x="{W - 40}" y="52" text-anchor="end" font-size="13" letter-spacing="1.5" fill="#6E7688">PINS LIGHT UP IN TURN · DATA FLOWS INTO THE CHIP</text>']
+    traces, labels = [], []
+    for side, names in (("L", left), ("R", right)):
+        for i, (nm, y) in enumerate(zip(names, ys)):
+            k = idx[(side, i)]
+            box_w, box_h = 250, 40
+            if side == "L":
+                bx = 70
+                x_box, x_pin = bx + box_w, CX0
+                jog = (y - (CY0 + CY1) / 2) * .18
+                d = f"M{x_box} {y + jog:.1f} L{x_box + 40} {y + jog:.1f} L{x_box + 40 + abs(jog):.1f} {y:.1f} L{x_pin} {y:.1f}"
+            else:
+                bx = W - 70 - box_w
+                x_box, x_pin = bx, CX1
+                jog = (y - (CY0 + CY1) / 2) * .18
+                d = f"M{x_box} {y + jog:.1f} L{x_box - 40} {y + jog:.1f} L{x_box - 40 - abs(jog):.1f} {y:.1f} L{x_pin} {y:.1f}"
+            by = y + jog - box_h / 2
+            traces.append(f'<path class="w{k}" d="{d}" stroke="#3A0C12" stroke-width="3" fill="none"/>')
+            traces.append(f'<path class="pulse" pathLength="1" d="{d}" stroke="#FF6B75" stroke-width="3" fill="none" '
+                          f'stroke-linecap="round" style="animation-delay:-{(k * .37) % 2.4:.2f}s"/>')
+            labels.append(f'<rect class="b{k}" x="{bx}" y="{by:.1f}" width="{box_w}" height="{box_h}" rx="6" fill="#0C0D12" stroke="#2A2E3A" stroke-width="2"/>'
+                          f'<text class="t{k}" x="{bx + box_w / 2}" y="{by + 26:.1f}" text-anchor="middle" font-size="15" '
+                          f'font-weight="800" letter-spacing="2.5" fill="#9AA3B5">{nm}</text>'
+                          f'<text x="{bx + (12 if side == "L" else box_w - 12)}" y="{by + 25:.1f}" text-anchor="{"start" if side == "L" else "end"}" '
+                          f'font-size="10" fill="#4C5366" font-family="monospace">{"P" if side == "L" else "Q"}{i + 1}</text>')
+    body.append(f'<g filter="url(#tglow)">{"".join(traces)}</g>')
+    body.append("".join(labels))
+    # chip
+    pins = "".join(f'<rect x="{CX0 - 10}" y="{y - 6:.1f}" width="10" height="12" fill="#9AA0AA"/>'
+                   f'<rect x="{CX1}" y="{y - 6:.1f}" width="10" height="12" fill="#9AA0AA"/>' for y in ys)
+    body.append(pins)
+    body.append(f'<rect x="{CX0}" y="{CY0}" width="{CX1 - CX0}" height="{CY1 - CY0}" rx="12" fill="url(#chip)" stroke="#2A2E3A" stroke-width="2"/>')
+    body.append(f'<circle cx="{CX0 + 22}" cy="{CY0 + 22}" r="6" fill="#20232D"/>')
+    mid = (CY0 + CY1) / 2
+    body.append(f'<g filter="url(#glow)">{led_text("CORE", 600, mid - 52, 6, AMBER, dot=5)}{led_text("STACK", 600, mid + 12, 6, AMBER, dot=5)}</g>')
+    body.append(led_text("U2 · IEG", 600, CY0 + 26, 2.4, "#6E7688", dot=2))
+    body.append(led_text("ALSO LOADING: DOCKER", 600, CY1 + 26, 2.4, "#6E7688", dot=2))
 
-    stripes = "".join(
-        f'<rect x="{px0 + i * pw / 12:.1f}" y="{py0}" width="{pw / 12 + .5:.1f}" height="{ph}" fill="{PITCH if i % 2 else PITCH2}"/>'
-        for i in range(12))
-    L = f'stroke="{CHALK}" stroke-opacity=".75" stroke-width="3" fill="none"'
-    lines = (
-        f'<rect x="{px0}" y="{py0}" width="{pw}" height="{ph}" {L}/>'
-        f'<line x1="{px0 + pw / 2}" y1="{py0}" x2="{px0 + pw / 2}" y2="{py0 + ph}" {L}/>'
-        f'<circle cx="{px0 + pw / 2}" cy="{py0 + ph / 2}" r="72" {L}/>'
-        f'<circle cx="{px0 + pw / 2}" cy="{py0 + ph / 2}" r="4" fill="{CHALK}"/>'
-        + "".join(
-            f'<rect x="{x}" y="{py0 + ph / 2 - 160}" width="150" height="320" {L}/>'
-            f'<rect x="{x2}" y="{py0 + ph / 2 - 75}" width="55" height="150" {L}/>'
-            for x, x2 in ((px0, px0), (px0 + pw - 150, px0 + pw - 55)))
-        + f'<rect x="{px0 - 18}" y="{py0 + ph / 2 - 45}" width="18" height="90" {L}/>'
-        f'<g class="netr"><rect x="{px0 + pw}" y="{py0 + ph / 2 - 45}" width="18" height="90" {L}/>'
-        f'<path d="' + "".join(f"M{px0 + pw} {py0 + ph / 2 - 45 + k * 15}h18" for k in range(1, 6)) + f'" stroke="{CHALK}" stroke-opacity=".35"/></g>'
-    )
-    # passing lane (dashed) in fill order
-    lane = (f'<path d="M' + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts) +
-            f'" stroke="{AMBER}" stroke-opacity=".28" stroke-width="2" stroke-dasharray="6 8" fill="none"/>')
-    players = []
-    for i, ((pos, label, _, _), (x, y)) in enumerate(zip(xi, pts)):
-        players.append(
-            f'<g><circle class="p p{i}" cx="{x:.1f}" cy="{y:.1f}" r="27" fill="#0B1220" stroke="{CHALK}" stroke-width="3"/>'
-            f'<text class="t{i}" x="{x:.1f}" y="{y + 6:.1f}" text-anchor="middle" font-size="17" font-weight="800" fill="#9FB3A7">{pos}</text>'
-            f'<rect x="{x - (len(label) * 6.2 + 18) / 2:.1f}" y="{y + 34:.1f}" width="{len(label) * 6.2 + 18:.1f}" height="22" rx="4" fill="#06090F" fill-opacity=".82"/>'
-            f'<text x="{x:.1f}" y="{y + 50:.1f}" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="1" fill="{CHALK}">{label}</text></g>')
-    ball = (f'<g><circle r="9" fill="#fff" stroke="#06090F" stroke-width="2"/>'
-            f'<path d="M-3 -4l3-2 3 2-1 4h-4z" fill="#06090F"/>'
-            f'<animateMotion dur="{cycle}s" repeatCount="indefinite" calcMode="linear" '
-            f'keyPoints="{";".join(kp)}" keyTimes="{";".join(kt)}" path="{d}"/></g>')
-    goal_txt = (f'<g class="goal"><rect x="{px0 + pw - 330}" y="{py0 + 14}" width="300" height="46" rx="6" fill="{AMBER}"/>'
-                f'<text x="{px0 + pw - 180}" y="{py0 + 45}" text-anchor="middle" font-size="22" font-weight="900" letter-spacing="3" fill="#FFFFFF">GOAL · SHIPPED</text></g>')
-    head = (f'<text x="{px0}" y="44" font-size="22" font-weight="900" letter-spacing="3" fill="{AMBER}">TECH STACK · 4-3-3</text>'
-            f'<text x="{px0 + pw}" y="44" text-anchor="end" font-size="14" letter-spacing="1.5" fill="#9FB3A7">FILLED IN THE ORDER OF  Formation.create433()  FROM SCOUTIQ</text>')
-    bench = (f'<text x="{px0}" y="{py0 + ph + 52}" font-size="15" font-weight="800" letter-spacing="2" fill="{AMBER}">ALSO IN THE SQUAD</text>'
-             + "".join(
-                 f'<g transform="translate({px0 + 270 + k * 195} {py0 + ph + 34})"><rect width="175" height="26" rx="13" fill="none" stroke="#9FB3A7" stroke-dasharray="4 4"/>'
-                 f'<text x="87.5" y="18" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="{CHALK}">{n}</text></g>'
-                 for k, n in enumerate(["SQL · POSTGRESQL", "SPRING", "REACT"])))
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="My tech stack as a 4-3-3 starting eleven on a soccer pitch" font-family="'Segoe UI',Helvetica,Arial,sans-serif">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="My core tech stack drawn as a chip pinout" font-family="'Segoe UI',Helvetica,Arial,sans-serif">
+<defs>
+<pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="#1B1D26"/></pattern>
+<radialGradient id="halo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{AMBER}" stop-opacity=".35"/><stop offset="1" stop-color="{AMBER}" stop-opacity="0"/></radialGradient>
+<linearGradient id="chip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#15171E"/><stop offset="1" stop-color="#0A0B10"/></linearGradient>
+<filter id="glow" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="tglow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
 <style>{"".join(css)}</style>
-<rect width="{W}" height="{H}" rx="14" fill="{NIGHT}"/>
-{head}
-{stripes}{lines}{lane}
-{"".join(players)}
-{ball}
-{bench}
+{"".join(body)}
 </svg>'''
-    open(f"{OUT}/starting-xi.svg", "w").write(svg)
+    open(f"{OUT}/stack.svg", "w").write(svg)
 
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     banner()
     ticker()
-    starting_xi()
-    for f in ("banner.svg", "ticker.svg", "starting-xi.svg"):
+    stack_board()
+    for f in ("banner.svg", "ticker.svg", "stack.svg"):
         print(f, os.path.getsize(f"{OUT}/{f}"))

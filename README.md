@@ -1,8 +1,8 @@
-<!-- Floodlights theme: red LED stadium scoreboard over a floodlit pitch. -->
-<!-- banner, ticker and tech-stack board: scripts/gen.py · stats scoreboard: scripts/scoreboard.py (updated daily) -->
+<!-- Red circuit-board theme. -->
+<!-- banner, ticker and core-stack chip: scripts/gen.py · stats board: scripts/scoreboard.py (updated daily) -->
 
 <p align="center">
-  <img src="assets/banner.svg" alt="Iliass El Guaari, Software Engineering at the University of Ottawa" width="100%"/>
+  <img src="assets/banner.svg" alt="Iliass El Guaari, Software Engineering at the University of Ottawa, on a red circuit board" width="100%"/>
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
 - 🎓 **Software Engineering (Co-op)** student at the **University of Ottawa** (2025 – 2029)
 - 🧠 Built **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)**, a Java engine that ranks players and builds soccer lineups, and extended **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)**, an open-source AI travel planner I deployed on Streamlit
 - 🌐 Built websites for small businesses as a freelance web developer (Winter 2026)
-- ⚽ Soccer player and former **Canada Soccer** referee
+- ⚽ Off the keyboard: soccer player and former **Canada Soccer** referee
 - 🗣️ Bilingual: **English and French**
 - 🎯 **Open to a Summer 2027 software co-op**
 
@@ -113,13 +113,12 @@
   <img src="https://img.shields.io/badge/Docker-0B1220?style=for-the-badge&logo=docker&logoColor=2496ED" alt="Docker"/>
 </p>
 
-## ⚽ Stack lineup
+## 🔌 Core stack
 
-My core stack as a 4-3-3. The ball visits each position in the same order that
-[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)'s `Formation.create433()` fills them.
+My core stack wired into one chip. Each pin lights up in turn while data flows in.
 
 <p align="center">
-  <img src="assets/starting-xi.svg" alt="My core tech stack laid out as a 4-3-3 formation" width="100%"/>
+  <img src="assets/stack.svg" alt="My core tech stack drawn as a chip pinout" width="100%"/>
 </p>
 
 ## 🚀 Featured projects
@@ -132,10 +131,10 @@ My core stack as a 4-3-3. The ball visits each position in the same order that
 
 ## 📊 Stats
 
-GitHub and LeetCode numbers on one scoreboard, redrawn every day by a GitHub Action.
+GitHub and LeetCode numbers on one board, redrawn every day by a GitHub Action.
 
 <p align="center">
-  <img src="assets/scoreboard.svg" alt="Scoreboard of my GitHub and LeetCode stats" width="100%"/>
+  <img src="assets/scoreboard.svg" alt="My GitHub and LeetCode stats" width="100%"/>
 </p>
 
 <p align="center">
