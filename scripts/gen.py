@@ -114,106 +114,166 @@ def unlit_grid(x, y, w, h, pitch, color, pid):
 
 # ---------------------------------------------------------------- banner.svg
 def banner():
-    W, H = 1200, 360
+    """Stadium 'lights on' intro: blackout, floodlights bang on bank by bank,
+    the LED name slams onto the board with a red flash, then the crowd keeps
+    flashing cameras. Final state is the base style, so a paused or
+    non-animating viewer still sees the finished banner."""
+    import random
+    W, H = 1200, 420
+    random.seed(11)
+    T = 7  # intro length in seconds (plays once per page load)
     defs, body = [], []
+
     defs.append(f'''
 <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="#03050A"/><stop offset=".7" stop-color="{NIGHT2}"/><stop offset="1" stop-color="#0A1A12"/>
+  <stop offset="0" stop-color="#020306"/><stop offset=".55" stop-color="#090D16"/><stop offset="1" stop-color="#14070A"/>
 </linearGradient>
-<radialGradient id="beamL" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(70 30) rotate(38) scale(620 230)">
-  <stop offset="0" stop-color="#FFF6D6" stop-opacity=".30"/><stop offset="1" stop-color="#FFF6D6" stop-opacity="0"/>
+<radialGradient id="bloom" cx=".5" cy=".5" r=".5">
+  <stop offset="0" stop-color="#FFFFFF"/><stop offset=".25" stop-color="#FFF4D8" stop-opacity=".9"/><stop offset="1" stop-color="#FFF4D8" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="beamR" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1130 30) rotate(142) scale(620 230)">
-  <stop offset="0" stop-color="#FFF6D6" stop-opacity=".30"/><stop offset="1" stop-color="#FFF6D6" stop-opacity="0"/>
+<linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#FFF6DD" stop-opacity=".42"/><stop offset=".7" stop-color="#FFF6DD" stop-opacity=".06"/><stop offset="1" stop-color="#FFF6DD" stop-opacity="0"/>
+</linearGradient>
+<radialGradient id="redglow" cx=".5" cy=".5" r=".5">
+  <stop offset="0" stop-color="{AMBER}" stop-opacity=".9"/><stop offset=".55" stop-color="{AMBER}" stop-opacity=".25"/><stop offset="1" stop-color="{AMBER}" stop-opacity="0"/>
 </radialGradient>
 <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0" stop-color="#0D1118"/><stop offset="1" stop-color="#05070B"/>
+  <stop offset="0" stop-color="#0D1118"/><stop offset="1" stop-color="#04060A"/>
 </linearGradient>
 <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
-  <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
 </linearGradient>
-<filter id="glow" x="-10%" y="-30%" width="120%" height="160%">
-  <feGaussianBlur stdDeviation="3.2" result="b"/>
+<linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#0F5A3A"/><stop offset="1" stop-color="#041A10"/>
+</linearGradient>
+<filter id="glow" x="-10%" y="-40%" width="120%" height="180%">
+  <feGaussianBlur stdDeviation="4" result="b"/>
   <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
 </filter>
 <filter id="softglow" x="-10%" y="-50%" width="120%" height="200%">
   <feGaussianBlur stdDeviation="1.6" result="b"/>
   <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
 </filter>
-<clipPath id="screen"><rect x="96" y="70" width="1008" height="214" rx="6"/></clipPath>''')
+<clipPath id="screen"><rect x="160" y="96" width="880" height="214" rx="6"/></clipPath>
+<pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".22"/></pattern>''')
 
-    style = f'''<style>
-.beam{{animation:flick 7s infinite}}
-.beam.r{{animation-delay:-2.3s}}
-@keyframes flick{{0%,100%{{opacity:1}}46%{{opacity:1}}47%{{opacity:.55}}48%{{opacity:1}}50%{{opacity:.7}}51%{{opacity:1}}}}
-.name{{animation:power 1.6s ease-out}}
-@keyframes power{{0%,70%,100%{{opacity:1}}12%{{opacity:.2}}24%{{opacity:1}}40%{{opacity:.35}}55%{{opacity:1}}}}
-.sweep{{animation:sweep 5.5s ease-in-out infinite}}
+    css = f'''
+.blackout{{opacity:0;animation:bo {T}s ease-out}}
+@keyframes bo{{0%,10%{{opacity:1}}20%{{opacity:.85}}30%{{opacity:.55}}42%,100%{{opacity:0}}}}
+.bankL{{animation:bankL {T}s linear}}
+@keyframes bankL{{0%,12%{{opacity:0}}12.5%{{opacity:1}}100%{{opacity:1}}}}
+.bankR{{animation:bankR {T}s linear}}
+@keyframes bankR{{0%,21%{{opacity:0}}21.5%{{opacity:1}}100%{{opacity:1}}}}
+.bloomL{{opacity:0;animation:bloomL {T}s ease-out}}
+@keyframes bloomL{{0%,12%{{opacity:0}}13%{{opacity:1}}24%,100%{{opacity:0}}}}
+.bloomR{{opacity:0;animation:bloomR {T}s ease-out}}
+@keyframes bloomR{{0%,21%{{opacity:0}}22%{{opacity:1}}33%,100%{{opacity:0}}}}
+.board{{animation:board {T}s linear}}
+@keyframes board{{0%,30%{{opacity:.15}}31%{{opacity:.6}}32%{{opacity:.2}}34%,100%{{opacity:1}}}}
+.name{{transform-origin:600px 175px;animation:slam {T}s cubic-bezier(.2,1.6,.4,1)}}
+@keyframes slam{{0%,44%{{opacity:0;transform:scale(1.6)}}45%{{opacity:1;transform:scale(1.25)}}52%,100%{{opacity:1;transform:scale(1)}}}}
+.flash{{opacity:0;animation:flash {T}s ease-out}}
+@keyframes flash{{0%,45%{{opacity:0}}46%{{opacity:.75}}60%,100%{{opacity:0}}}}
+.sub{{animation:sub {T}s ease-out}}
+@keyframes sub{{0%,55%{{opacity:0}}62%,100%{{opacity:1}}}}
+.beam{{animation:flick 9s infinite}}
+.beam.r{{animation-delay:-3.1s}}
+@keyframes flick{{0%,100%{{opacity:1}}46%{{opacity:1}}47%{{opacity:.6}}48%{{opacity:1}}50%{{opacity:.75}}51%{{opacity:1}}}}
+.cam{{opacity:0;animation:cam 4s infinite}}
+@keyframes cam{{0%,94%,100%{{opacity:0}}95%{{opacity:1}}97%{{opacity:.3}}}}
+.sweep{{animation:sweep 5s ease-in-out infinite}}
 @keyframes sweep{{0%{{transform:translateX(-300px)}}60%,100%{{transform:translateX(1300px)}}}}
-.live{{animation:blink 1.2s steps(2,start) infinite}}
+.live{{animation:blink 1.1s steps(2,start) infinite}}
 @keyframes blink{{to{{visibility:hidden}}}}
-.lamp{{animation:lamp 7s infinite}}
-@keyframes lamp{{0%,46%,48%,51%,100%{{fill:#FFF6D6}}47%,50%{{fill:#7A7462}}}}
-</style>'''
+.pulse{{animation:pulse 2.4s ease-in-out infinite}}
+@keyframes pulse{{0%,100%{{opacity:.55}}50%{{opacity:1}}}}
+'''
 
     body.append(f'<rect width="{W}" height="{H}" fill="url(#sky)"/>')
     # stars
-    import random
-    random.seed(7)
-    stars = "".join(f'<circle cx="{random.randint(0, W)}" cy="{random.randint(0, 120)}" r="{random.choice([.6, .8, 1.1])}" fill="#fff" opacity="{random.choice([.25, .4, .6])}"/>' for _ in range(60))
-    body.append(stars)
-    body.append('<rect class="beam" width="1200" height="360" fill="url(#beamL)"/>')
-    body.append('<rect class="beam r" width="1200" height="360" fill="url(#beamR)"/>')
-    # floodlight towers
-    for x, flip in ((40, 1), (1160, -1)):
-        body.append(f'<g transform="translate({x} 0)">'
-                    f'<path d="M-2 60 L2 60 L5 {H} L-5 {H}Z" fill="#1A2230"/>'
-                    f'<rect x="-26" y="14" width="52" height="34" rx="3" fill="#1A2230"/>'
-                    + "".join(f'<rect class="lamp" x="{-22 + c * 12}" y="{18 + r * 14}" width="9" height="10" rx="2" fill="#FFF6D6"/>'
-                              for r in range(2) for c in range(4))
-                    + '</g>')
-    # pitch strip
-    for i in range(12):
-        body.append(f'<rect x="{i * 100}" y="318" width="100" height="42" fill="{PITCH if i % 2 else PITCH2}"/>')
-    body.append(f'<rect x="0" y="318" width="1200" height="2" fill="{CHALK}" opacity=".5"/>')
-    # scoreboard frame
-    body.append('<rect x="560" y="290" width="16" height="30" fill="#1A2230"/><rect x="624" y="290" width="16" height="30" fill="#1A2230"/>')
-    body.append('<rect x="80" y="54" width="1040" height="246" rx="14" fill="#141A24" stroke="#2A3445" stroke-width="2"/>')
-    body.append('<rect x="96" y="70" width="1008" height="214" rx="6" fill="url(#panel)"/>')
-    for bx, by in ((92, 66), (1108, 66), (92, 288), (1108, 288)):
-        body.append(f'<circle cx="{bx}" cy="{by}" r="3.5" fill="#3A4558"/>')
+    body.append("".join(f'<circle cx="{random.randint(0, W)}" cy="{random.randint(0, 70)}" r="{random.choice([.6, .9])}" fill="#fff" opacity="{random.choice([.25, .45])}"/>' for _ in range(40)))
 
+    # crowd bowl: two tiers of dim heads
+    crowd = []
+    for row in range(9):
+        y = 150 + row * 13
+        for x in range(4 + (row % 2) * 6, W, 12):
+            crowd.append(f"M{x} {y}h0")
+    body.append(f'<path d="M0 140 L1200 140 L1200 270 L0 270Z" fill="#0B0F17"/>')
+    body.append(f'<path d="{"".join(crowd)}" stroke="#1C2230" stroke-width="7" stroke-linecap="round"/>')
+    # camera flashes in the crowd
+    flashes = []
+    for _ in range(46):
+        x = random.randint(10, W - 10)
+        y = random.randint(146, 262)
+        if 150 < x < 1050 and y < 320:  # mostly hidden behind the board; still nice at the edges
+            if random.random() < .55:
+                continue
+        dur = random.choice([2.7, 3.3, 3.9, 4.6, 5.2, 6.1])
+        flashes.append(f'<g class="cam" style="animation-duration:{dur}s;animation-delay:-{random.uniform(0, dur):.2f}s">'
+                       f'<circle cx="{x}" cy="{y}" r="7" fill="url(#bloom)"/><circle cx="{x}" cy="{y}" r="1.8" fill="#fff"/></g>')
+    body.append("".join(flashes))
+
+    # floodlight beams (on after their bank ignites)
+    body.append('<g class="bankL"><path class="beam" d="M70 40 L470 420 L170 420Z" fill="url(#beam)"/></g>')
+    body.append('<g class="bankR"><path class="beam r" d="M1130 40 L1030 420 L730 420Z" fill="url(#beam)"/></g>')
+    # towers
+    for x, cls in ((70, "L"), (1130, "R")):
+        lamps = "".join(f'<rect x="{-30 + c * 13}" y="{14 + r * 14}" width="10" height="10" rx="2" fill="#FFF6D6"/>'
+                        for r in range(3) for c in range(5))
+        body.append(f'<g transform="translate({x} 0)"><path d="M-3 60 L3 60 L7 {H} L-7 {H}Z" fill="#161C28"/>'
+                    f'<rect x="-34" y="10" width="68" height="46" rx="3" fill="#161C28"/>'
+                    f'<g fill="#3A3F4A">{lamps.replace("#FFF6D6", "#3A3F4A")}</g>'
+                    f'<g class="bank{cls}">{lamps}</g>'
+                    f'<circle class="bloom{cls}" cx="0" cy="33" r="160" fill="url(#bloom)"/></g>')
+
+    # pitch
+    body.append(f'<rect x="0" y="340" width="{W}" height="80" fill="url(#grass)"/>')
+    for i in range(0, 12, 2):
+        body.append(f'<rect x="{i * 100}" y="340" width="100" height="80" fill="#000" opacity=".12"/>')
+    body.append(f'<rect x="0" y="340" width="{W}" height="2" fill="{CHALK}" opacity=".55"/>')
+    body.append(f'<path d="M600 342 V420" stroke="{CHALK}" stroke-opacity=".45" stroke-width="2"/>')
+    body.append(f'<ellipse cx="600" cy="420" rx="120" ry="34" fill="none" stroke="{CHALK}" stroke-opacity=".45" stroke-width="2"/>')
+    body.append(f'<ellipse class="pulse" cx="600" cy="352" rx="520" ry="26" fill="url(#redglow)" opacity=".7"/>')
+
+    # scoreboard
+    board = []
+    board.append(f'<ellipse class="pulse" cx="600" cy="205" rx="660" ry="210" fill="url(#redglow)"/>')
+    board.append('<rect x="585" y="324" width="12" height="20" fill="#161C28"/><rect x="603" y="324" width="12" height="20" fill="#161C28"/>')
+    board.append(f'<rect x="144" y="80" width="912" height="246" rx="14" fill="#141A24" stroke="#2A3445" stroke-width="2"/>')
+    board.append(f'<rect x="160" y="96" width="880" height="214" rx="6" fill="url(#panel)"/>')
+    for bx, by in ((156, 92), (1044, 92), (156, 314), (1044, 314)):
+        board.append(f'<circle cx="{bx}" cy="{by}" r="3.5" fill="#3A4558"/>')
     g = []
-    # unlit LED grid behind the name
-    p_big = 10
+    p_big = 9
     name = "ILIASS EL GUAARI"
-    pat, rect = unlit_grid(115, 130, 980, 84, p_big, "#1F0A0C", "u1")
+    w_name = (text_cols(name) - 1) * p_big
+    x0 = 600 - w_name / 2
+    pat, rect = unlit_grid(x0, 148, w_name + p_big, 72, p_big, "#200A0D", "u1")
     defs.append(pat)
     g.append(rect)
-    g.append(f'<g filter="url(#glow)" class="name">{led_text(name, 600, 140, p_big, AMBER, dot=8)}</g>')
-    # top row: HOME / AWAY
+    g.append(f'<g class="name"><g filter="url(#glow)">{led_text(name, 600, 156, p_big, AMBER, dot=8)}</g></g>')
     p_s = 3
-    away = "SUMMER 2027 CO-OP"
+    left, right = "OTTAWA, ON · EN / FR", "SUMMER 2027 CO-OP"
     g.append(f'<g filter="url(#softglow)">'
-             f'{led_text("OTTAWA, ON · EN / FR", 118, 90, p_s, GREEN, anchor="start", dot=2.6)}'
-             f'{led_text(away, 1082 - (text_cols(away) - 1) * p_s, 90, p_s, GREEN, anchor="start", dot=2.6)}'
-             f'</g>')
-    # centre live tag
-    g.append(f'<circle class="live" cx="562" cy="99" r="5" fill="#FF3B3B"/>')
-    g.append(f'<g filter="url(#softglow)">{led_text("LIVE", 604, 90, p_s, "#F4F8F2", dot=2.6)}</g>')
-    # bottom subtitle
-    sub = "SOFTWARE ENGINEERING · UOTTAWA"
-    g.append(f'<g filter="url(#softglow)">{led_text(sub, 600, 240, 5, CHALK, dot=4)}</g>')
-    g.append('<rect x="110" y="226" width="980" height="1.5" fill="#2A3445"/>')
-    g.append('<rect class="sweep" x="0" y="70" width="220" height="214" fill="url(#sweep)"/>')
-    body.append(f'<g clip-path="url(#screen)">{"".join(g)}</g>')
-    # scanlines
-    defs.append('<pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000" opacity=".22"/></pattern>')
-    body.append('<rect x="96" y="70" width="1008" height="214" rx="6" fill="url(#scan)"/>')
+             f'{led_text(left, 180, 114, p_s, GREEN, anchor="start", dot=2.6)}'
+             f'{led_text(right, 1020 - (text_cols(right) - 1) * p_s, 114, p_s, GREEN, anchor="start", dot=2.6)}</g>')
+    g.append(f'<circle class="live" cx="596" cy="123" r="5" fill="#FF3B3B"/>')
+    g.append(f'<g filter="url(#softglow)">{led_text("LIVE", 642, 114, p_s, "#F4F8F2", dot=2.6)}</g>')
+    g.append('<rect x="176" y="250" width="848" height="1.5" fill="#2A3445"/>')
+    g.append(f'<g class="sub" filter="url(#softglow)">{led_text("SOFTWARE ENGINEERING · UOTTAWA", 600, 264, 4.4, CHALK, dot=3.5)}</g>')
+    g.append('<rect class="sweep" x="0" y="96" width="220" height="214" fill="url(#sweep)"/>')
+    board.append(f'<g clip-path="url(#screen)">{"".join(g)}</g>')
+    board.append('<rect x="160" y="96" width="880" height="214" rx="6" fill="url(#scan)"/>')
+    body.append(f'<g class="board">{"".join(board)}</g>')
+
+    # intro overlays
+    body.append(f'<rect class="flash" width="{W}" height="{H}" fill="{AMBER}"/>')
+    body.append(f'<rect class="blackout" width="{W}" height="{H}" fill="#000"/>')
 
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
-           f'aria-label="Iliass El Guaari, Software Engineering at uOttawa, on a stadium scoreboard">'
-           f'<defs>{"".join(defs)}</defs>{style}{"".join(body)}</svg>')
+           f'aria-label="Iliass El Guaari, Software Engineering at uOttawa, on a floodlit stadium scoreboard">'
+           f'<defs>{"".join(defs)}</defs><style>{css}</style>{"".join(body)}</svg>')
     open(f"{OUT}/banner.svg", "w").write(svg)
 
 
