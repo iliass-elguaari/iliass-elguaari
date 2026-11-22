@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+CO-OP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
+  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;INCOMING+SWE+CO-OP+%40+STATISTICS+CANADA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+CO-OP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
 </p>
 
 <p align="center">
@@ -16,9 +16,10 @@
 ## 👋 About me
 
 - 🎓 **Software Engineering (Co-op)** student at the **University of Ottawa** (2025 – 2029)
+- 📊 Incoming **Software Engineer Co-op (Open Source Statistical Programmer)** at **Statistics Canada** (Jan – Apr 2027): migrating legacy SAS programs to Python and R, building unit-tested ETL pipelines and reusable packages, versioned in Git
 - 🧠 Built **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)**, a Java engine that ranks players and builds soccer lineups, and extended **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)**, an open-source AI travel planner I deployed on Streamlit
 - 🔨 Currently building **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)**, a REST API for student housing listings with Spring Boot and PostgreSQL, now with a [live front end demo](https://iliass-elguaari.github.io/spring-boot-listings-api/)
-- 🌐 Built websites for small businesses as a freelance web developer (Winter 2026)
+- 🌐 **Freelance web developer** (Jan – Apr 2026): built the back end and front end for small-business sites, with **Spring** and **PostgreSQL** storing the products and stock levels vendors add
 - ⚽ Off the keyboard: soccer player and former **Canada Soccer** referee
 - 🗣️ Bilingual: **English and French**
 - 🎯 **Open to a Summer 2027 software co-op**
@@ -112,6 +113,7 @@
 **Currently learning**
 
 <p>
+  <img src="https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white" alt="R"/>
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
 </p>
 
@@ -130,7 +132,6 @@ Everything I build with, in orbit around one core: languages on the inner ring, 
 | **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)** | Java | Ranks players for 12 positions and builds 4-3-3, 4-4-2 and 4-2-3-1 lineups, with CSV rosters and automated tests | [Demo](https://youtu.be/YIibp0YaeXw) |
 | **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)** | Python · Streamlit · OpenAI | Two-agent travel planner: a SerpAPI research agent feeds a GPT-4o planner that writes a day-by-day itinerary | [Demo](https://youtu.be/IcvbpsOCr38) · [Live](https://trippilot-ai-meepsrhytfe9nnb2q2rabr.streamlit.app/) |
 | **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)** | Java · Spring Boot · PostgreSQL · JS | REST API for student housing listings with a web front end to browse, filter, add and delete, plus MockMvc tests | [Live demo](https://iliass-elguaari.github.io/spring-boot-listings-api/) |
-| **[Maison Levain](https://iliass-elguaari.github.io/boulangerie/)** | HTML · CSS · JS | French-language website for a neighbourhood bakery, with an "open now" badge and a validated order form | [Site](https://iliass-elguaari.github.io/boulangerie/) |
 
 ## 📊 Stats
 
