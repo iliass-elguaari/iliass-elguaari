@@ -320,7 +320,7 @@ def stack_board():
     W, H = 1200, 700
     cx, cy = 600, 350
     rings = [
-        ((215, 118), 26, 1, ["JAVA", "PYTHON", "JAVASCRIPT", "C", "SQL"]),
+        ((215, 118), 26, 1, ["JAVA", "PYTHON", "JAVASCRIPT", "C", "C++", "SQL"]),
         ((375, 196), 40, -1, ["SPRING", "POSTGRESQL", "STREAMLIT", "OPENAI API", "ANDROID", "REACT"]),
         ((530, 272), 56, 1, ["GIT", "GITHUB", "INTELLIJ", "VS CODE", "BASH", "HTML / CSS", "DOCKER"]),
     ]
