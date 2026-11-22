@@ -1,8 +1,8 @@
 {
   "github": {
     "best_streak": 4,
-    "commits": 63,
-    "contributions": 98,
+    "commits": 78,
+    "contributions": 124,
     "languages": {
       "CSS": 95512,
       "HTML": 146850,
@@ -11,7 +11,7 @@
       "Python": 44784,
       "Shell": 201
     },
-    "prs": 6,
+    "prs": 17,
     "repos": 6,
     "stars": 0,
     "streak": 4
