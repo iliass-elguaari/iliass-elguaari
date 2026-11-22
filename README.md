@@ -17,7 +17,7 @@
 
 - 🎓 **Software Engineering (Co-op)** student at the **University of Ottawa** (2025 – 2029)
 - 🧠 Built **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)**, a Java engine that ranks players and builds soccer lineups, and extended **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)**, an open-source AI travel planner I deployed on Streamlit
-- 🔨 Currently building **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)**, a REST API for student housing listings with Spring Boot and PostgreSQL
+- 🔨 Currently building **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)**, a REST API for student housing listings with Spring Boot and PostgreSQL, now with a [live front end demo](https://iliass-elguaari.github.io/spring-boot-listings-api/)
 - 🌐 Built websites for small businesses as a freelance web developer (Winter 2026)
 - ⚽ Off the keyboard: soccer player and former **Canada Soccer** referee
 - 🗣️ Bilingual: **English and French**
@@ -128,7 +128,7 @@ Everything I build with, in orbit around one core: languages on the inner ring, 
 |---|---|---|---|
 | **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)** | Java | Ranks players for 12 positions and builds 4-3-3, 4-4-2 and 4-2-3-1 lineups, with CSV rosters and automated tests | [Demo](https://youtu.be/YIibp0YaeXw) |
 | **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)** | Python · Streamlit · OpenAI | Two-agent travel planner: a SerpAPI research agent feeds a GPT-4o planner that writes a day-by-day itinerary | [Demo](https://youtu.be/IcvbpsOCr38) · [Live](https://trippilot-ai-meepsrhytfe9nnb2q2rabr.streamlit.app/) |
-| **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)** | Java · Spring Boot · PostgreSQL | REST API for student housing listings (in progress) | [Repo](https://github.com/iliass-elguaari/spring-boot-listings-api) |
+| **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)** | Java · Spring Boot · PostgreSQL · JS | REST API for student housing listings with a web front end to browse, filter, add and delete, plus MockMvc tests | [Live demo](https://iliass-elguaari.github.io/spring-boot-listings-api/) |
 | **[Maison Levain](https://iliass-elguaari.github.io/boulangerie/)** | HTML · CSS · JS | French-language website for a neighbourhood bakery, with an "open now" badge and a validated order form | [Site](https://iliass-elguaari.github.io/boulangerie/) |
 
 ## 📊 Stats
