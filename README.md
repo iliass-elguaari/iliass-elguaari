@@ -19,7 +19,7 @@
 - 📊 Incoming **Software Engineer Co-op (Open Source Statistical Programmer)** at **Statistics Canada** (Jan – Apr 2027): migrating legacy SAS programs to Python and R, building unit-tested ETL pipelines and reusable packages, versioned in Git
 - 🧠 Built **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)**, a Java engine that ranks players and builds soccer lineups, and extended **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)**, an open-source AI travel planner I deployed on Streamlit
 - 🔨 Currently building **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)**, a REST API for student housing listings with Spring Boot and PostgreSQL, now with a [live front end demo](https://iliass-elguaari.github.io/spring-boot-listings-api/)
-- 🌐 **Freelance web developer** (Jan – Apr 2026): built the back end and front end for small-business sites, with **Spring** and **PostgreSQL** storing the products and stock levels vendors add
+- 🌐 **Freelance Backend Developer** (Jan – Apr 2026): built **Spring Boot** REST APIs on **PostgreSQL** for 9 small businesses in France to store the products and stock vendors add, then wired each storefront to its API. Over half saw sales rise about 30% after launch
 - ⚽ Off the keyboard: soccer player and former **Canada Soccer** referee
 - 🗣️ Bilingual: **English and French**
 - 🎯 **Open to a Summer 2027 software co-op**
