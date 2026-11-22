@@ -6,11 +6,11 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;SOFTWARE+ENGINEER+%40+STATISTICS+CANADA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+CO-OP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
+  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;SOFTWARE+ENGINEER+%40+STATISTICS+CANADA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+INTERNSHIP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
 </p>
 
 <p align="center">
-  <img src="assets/ticker.svg" alt="Open to a Summer 2027 software co-op" width="100%"/>
+  <img src="assets/ticker.svg" alt="Open to a Summer 2027 software internship; incoming Software Engineer at Statistics Canada" width="100%"/>
 </p>
 
 ## 👋 About me
@@ -22,7 +22,7 @@
 - 🌐 **Freelance Backend Developer** (Jan – Apr 2026): built **Spring Boot** REST APIs on **PostgreSQL** for 9 small businesses in France to store the products and stock vendors add, then wired each storefront to its API. Over half saw sales rise about 30% after launch
 - ⚽ Off the keyboard: soccer player and former **Canada Soccer** referee
 - 🗣️ Bilingual: **English and French**
-- 🎯 **Open to a Summer 2027 software co-op**
+- 🎯 **Available for a Summer 2027 software internship**
 
 ## 🔗 Connect
 

@@ -266,7 +266,7 @@ def banner():
     # silkscreen labels on the board
     body.append(f'<g class="late">'
                 f'{led_text("OTTAWA, ON · EN / FR", 34, H - 34, 2.4, "#6E7688", anchor="start", dot=2)}'
-                f'{led_text("SUMMER 2027 CO-OP", W - 34 - (text_cols("SUMMER 2027 CO-OP") - 1) * 2.4, H - 34, 2.4, AMBER, anchor="start", dot=2)}'
+                f'{led_text("SUMMER 2027 INTERNSHIP", W - 34 - (text_cols("SUMMER 2027 INTERNSHIP") - 1) * 2.4, H - 34, 2.4, AMBER, anchor="start", dot=2)}'
                 f'</g>')
 
     body.append(f'<rect class="flash" width="{W}" height="{H}" fill="{AMBER}"/>')
@@ -281,8 +281,9 @@ def banner():
 # ---------------------------------------------------------------- ticker.svg
 def ticker():
     W, H = 1200, 96
-    msg = ("   *   OPEN TO A SUMMER 2027 SOFTWARE CO-OP   *   SOFTWARE ENGINEERING · UNIVERSITY OF OTTAWA"
-           "   *   JAVA · PYTHON · JAVASCRIPT   *   PROJECTS: SCOUTIQ · TRIPPILOT AI   *   ENGLISH / FRENCH  ")
+    msg = ("   *   OPEN TO A SUMMER 2027 SOFTWARE INTERNSHIP   *   INCOMING SOFTWARE ENGINEER · STATISTICS CANADA"
+           "   *   SOFTWARE ENGINEERING · UNIVERSITY OF OTTAWA   *   JAVA · PYTHON · SPRING · POSTGRESQL"
+           "   *   PROJECTS: SCOUTIQ · TRIPPILOT AI · LISTINGS API   *   ENGLISH / FRENCH  ")
     p = 6
     w_msg = len(msg) * 6 * p
     y0 = (H - 6 * p) / 2
@@ -290,7 +291,7 @@ def ticker():
     speed = 90  # px per second
     dur = w_msg / speed
     pat, rect = unlit_grid(p / 2, y0 - p * 2, W, 11 * p, p, "#1C0A0C", "ut")
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Scrolling LED ticker: open to a Summer 2027 software co-op">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Scrolling LED ticker: open to a Summer 2027 software internship">
 <defs>{pat}
 <filter id="g" x="-5%" y="-40%" width="110%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <linearGradient id="fade" x1="0" x2="1"><stop offset="0" stop-color="#05070B"/><stop offset=".06" stop-color="#05070B" stop-opacity="0"/><stop offset=".94" stop-color="#05070B" stop-opacity="0"/><stop offset="1" stop-color="#05070B"/></linearGradient>
