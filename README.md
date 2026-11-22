@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;INCOMING+SWE+CO-OP+%40+STATISTICS+CANADA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+CO-OP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
+  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;SOFTWARE+ENGINEER+%40+STATISTICS+CANADA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+CO-OP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
 </p>
 
 <p align="center">
@@ -16,7 +16,7 @@
 ## 👋 About me
 
 - 🎓 **Software Engineering (Co-op)** student at the **University of Ottawa** (2025 – 2029)
-- 📊 Incoming **Software Engineer Co-op (Open Source Statistical Programmer)** at **Statistics Canada** (Jan – Apr 2027): migrating legacy SAS programs to Python and R, building unit-tested ETL pipelines and reusable packages, versioned in Git
+- 📊 Incoming **Software Engineer (Open Source Statistical Programmer)** at **Statistics Canada** (Jan – Apr 2027): migrating legacy SAS programs to Python and R, building unit-tested ETL pipelines and reusable packages, versioned in Git
 - 🧠 Built **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)**, a Java engine that ranks players and builds soccer lineups, and extended **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)**, an open-source AI travel planner I deployed on Streamlit
 - 🔨 Currently building **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)**, a REST API for student housing listings with Spring Boot and PostgreSQL, now with a [live front end demo](https://iliass-elguaari.github.io/spring-boot-listings-api/)
 - 🌐 **Freelance Backend Developer** (Jan – Apr 2026): built **Spring Boot** REST APIs on **PostgreSQL** for 9 small businesses in France to store the products and stock vendors add, then wired each storefront to its API. Over half saw sales rise about 30% after launch
