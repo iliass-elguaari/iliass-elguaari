@@ -1,18 +1,19 @@
 {
   "github": {
     "best_streak": 4,
-    "commits": 78,
-    "contributions": 124,
+    "commits": 89,
+    "contributions": 141,
     "languages": {
-      "CSS": 95512,
-      "HTML": 146850,
+      "CSS": 106330,
+      "HTML": 133176,
       "Java": 43219,
-      "JavaScript": 60980,
-      "Python": 44784,
+      "JavaScript": 86885,
+      "Kotlin": 78894,
+      "Python": 44905,
       "Shell": 201
     },
-    "prs": 17,
-    "repos": 6,
+    "prs": 22,
+    "repos": 7,
     "stars": 0,
     "streak": 4
   },
