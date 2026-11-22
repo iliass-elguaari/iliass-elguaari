@@ -17,6 +17,7 @@
 
 - 🎓 **Software Engineering (Co-op)** student at the **University of Ottawa** (2025 – 2029)
 - 🧠 Built **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)**, a Java engine that ranks players and builds soccer lineups, and extended **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)**, an open-source AI travel planner I deployed on Streamlit
+- 🔨 Currently building **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)**, a REST API for student housing listings with Spring Boot and PostgreSQL
 - 🌐 Built websites for small businesses as a freelance web developer (Winter 2026)
 - ⚽ Off the keyboard: soccer player and former **Canada Soccer** referee
 - 🗣️ Bilingual: **English and French**
