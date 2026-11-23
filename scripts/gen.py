@@ -281,7 +281,7 @@ def banner():
 # ---------------------------------------------------------------- ticker.svg
 def ticker():
     W, H = 1200, 96
-    msg = ("   *   NOW: SOFTWARE DEVELOPER · NEXT ROOM INC.   *   OPEN TO A SUMMER 2027 SOFTWARE INTERNSHIP"
+    msg = ("   *   NOW: FULL-STACK DEVELOPER · NEXT ROOM INC.   *   OPEN TO A SUMMER 2027 SOFTWARE INTERNSHIP"
            "   *   INCOMING SOFTWARE ENGINEER · STATISTICS CANADA"
            "   *   SOFTWARE ENGINEERING · UNIVERSITY OF OTTAWA   *   JAVA · PYTHON · SPRING · POSTGRESQL"
            "   *   PROJECTS: SCOUTIQ · TRIPPILOT AI · LISTINGS API   *   ENGLISH / FRENCH  ")

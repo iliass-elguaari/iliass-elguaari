@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;SOFTWARE+DEVELOPER+%40+NEXT+ROOM;SOFTWARE+ENGINEER+%40+STATISTICS+CANADA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+INTERNSHIP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
+  <img src="https://readme-typing-svg.demolab.com/?font=Silkscreen&size=30&duration=2800&pause=1200&color=FF2D3D&background=06090F&center=true&vCenter=true&width=1200&height=70&lines=HI%2C+I'M+ILIASS+EL+GUAARI;SOFTWARE+ENGINEERING+%40+UOTTAWA;FULL-STACK+DEVELOPER+%40+NEXT+ROOM;SOFTWARE+ENGINEER+%40+STATISTICS+CANADA;JAVA+%C2%B7+PYTHON+%C2%B7+JAVASCRIPT;OPEN+TO+A+SUMMER+2027+INTERNSHIP" alt="Hi, I'm Iliass El Guaari" width="100%"/>
 </p>
 
 <p align="center">
@@ -16,7 +16,7 @@
 ## 👋 About me
 
 - 🎓 **Software Engineering (Co-op)** student at the **University of Ottawa** (2025 – 2029)
-- 🏠 **Software Developer (Release Engineer)** at **[Next Room Inc.](https://nextroom.ca)** (Nov 2026 – present): building the React / Next.js front end, wiring it to Spring Boot + PostgreSQL APIs, and running the GitHub release workflow for an Ottawa student housing platform that matches students with housing and roommates at the same time. Next Room has been [featured by uOttawa](https://www.uottawa.ca/en/news-all/students-use-self-directed-course-build-housing-app) and on [580 CFRA](https://omny.fm/shows/580-cfra/ottawa-now-how-a-student-run-invention-is-making-it-easier-for-students-to-find-housing), signed a [partnership with Carleton's student union](https://www.cusaonline.ca/cusa-signs-memorandum-with-next-room/), and had 1,200+ students sign up before launch
+- 🏠 **Software Developer (Release Engineer)** at **[Next Room Inc.](https://nextroom.ca)** (Nov 2026 – present): full stack, end to end. I build Java Spring Boot REST APIs on PostgreSQL, connect the AI features to the back end, carry it all through to the React / Next.js front end, and run the GitHub release workflow for an Ottawa student housing platform that matches students with housing and roommates at the same time. Next Room has been [featured by uOttawa](https://www.uottawa.ca/en/news-all/students-use-self-directed-course-build-housing-app) and on [580 CFRA](https://omny.fm/shows/580-cfra/ottawa-now-how-a-student-run-invention-is-making-it-easier-for-students-to-find-housing), signed a [partnership with Carleton's student union](https://www.cusaonline.ca/cusa-signs-memorandum-with-next-room/), and had 1,200+ students sign up before launch
 - 📊 Incoming **Software Engineer (Open Source Statistical Programmer)** at **Statistics Canada** (Jan – Apr 2027): migrating legacy SAS programs to Python and R, building unit-tested ETL pipelines and reusable packages, versioned in Git
 - 🧠 Built **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)**, a Java engine that ranks players and builds soccer lineups, and extended **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)**, an open-source AI travel planner I deployed on Streamlit
 - 🔨 Currently building **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)**, a REST API for student housing listings with Spring Boot and PostgreSQL, now with a [live front end demo](https://iliass-elguaari.github.io/spring-boot-listings-api/)
