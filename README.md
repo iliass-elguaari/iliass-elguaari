@@ -17,6 +17,7 @@
 
 - 🎓 **Software Engineering (Co-op)** student at the **University of Ottawa** (2025 – 2029)
 - 🏠 **Software Developer (Release Engineer)** at **[Next Room Inc.](https://nextroom.ca)** (Nov 2026 – present): full stack, end to end. I build Java Spring Boot REST APIs on PostgreSQL, connect the AI features to the back end, carry it all through to the React / Next.js front end, and run the GitHub release workflow for an Ottawa student housing platform that matches students with housing and roommates at the same time. Next Room has been [featured by uOttawa](https://www.uottawa.ca/en/news-all/students-use-self-directed-course-build-housing-app) and on [580 CFRA](https://omny.fm/shows/580-cfra/ottawa-now-how-a-student-run-invention-is-making-it-easier-for-students-to-find-housing), signed a [partnership with Carleton's student union](https://www.cusaonline.ca/cusa-signs-memorandum-with-next-room/), built a [10K+ Instagram following](https://www.instagram.com/nextroom_ca/), and had 1,200+ students sign up before launch
+- 🚀 **Software team member, GN&C** at **[uORover](https://uorover.org)**, the University of Ottawa Mars Rover Team (Nov 2026 – present): joined the Guidance, Navigation and Control software subsystem of the rover that competes at the University Rover Challenge in Utah. Ramping up on ROS 2 and Python, and building a web mission-control dashboard for live telemetry and camera feeds
 - 📊 Incoming **Software Engineer (Open Source Statistical Programmer)** at **Statistics Canada** (Jan – Apr 2027): migrating legacy SAS programs to Python and R, building unit-tested ETL pipelines and reusable packages, versioned in Git
 - 🧠 Built **[ScoutIQ](https://github.com/iliass-elguaari/ScoutIQ)**, a Java engine that ranks players and builds soccer lineups, and extended **[TripPilot AI](https://github.com/iliass-elguaari/TripPilot-AI)**, an open-source AI travel planner I deployed on Streamlit
 - 🔨 Currently building **[Spring Boot Listings API](https://github.com/iliass-elguaari/spring-boot-listings-api)**, a REST API for student housing listings with Spring Boot and PostgreSQL, now with a [live front end demo](https://iliass-elguaari.github.io/spring-boot-listings-api/)
@@ -117,6 +118,7 @@
 <p>
   <img src="https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white" alt="R"/>
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+  <img src="https://img.shields.io/badge/ROS_2-22314E?style=for-the-badge&logo=ros&logoColor=white" alt="ROS 2"/>
 </p>
 
 ## ⚛️ Stack reactor
