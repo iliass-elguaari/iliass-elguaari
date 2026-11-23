@@ -281,7 +281,8 @@ def banner():
 # ---------------------------------------------------------------- ticker.svg
 def ticker():
     W, H = 1200, 96
-    msg = ("   *   OPEN TO A SUMMER 2027 SOFTWARE INTERNSHIP   *   INCOMING SOFTWARE ENGINEER · STATISTICS CANADA"
+    msg = ("   *   NOW: SOFTWARE DEVELOPER · NEXT ROOM INC.   *   OPEN TO A SUMMER 2027 SOFTWARE INTERNSHIP"
+           "   *   INCOMING SOFTWARE ENGINEER · STATISTICS CANADA"
            "   *   SOFTWARE ENGINEERING · UNIVERSITY OF OTTAWA   *   JAVA · PYTHON · SPRING · POSTGRESQL"
            "   *   PROJECTS: SCOUTIQ · TRIPPILOT AI · LISTINGS API   *   ENGLISH / FRENCH  ")
     p = 6
@@ -291,7 +292,7 @@ def ticker():
     speed = 90  # px per second
     dur = w_msg / speed
     pat, rect = unlit_grid(p / 2, y0 - p * 2, W, 11 * p, p, "#1C0A0C", "ut")
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Scrolling LED ticker: open to a Summer 2027 software internship">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Scrolling LED ticker: Software Developer at Next Room Inc., open to a Summer 2027 software internship">
 <defs>{pat}
 <filter id="g" x="-5%" y="-40%" width="110%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <linearGradient id="fade" x1="0" x2="1"><stop offset="0" stop-color="#05070B"/><stop offset=".06" stop-color="#05070B" stop-opacity="0"/><stop offset=".94" stop-color="#05070B" stop-opacity="0"/><stop offset="1" stop-color="#05070B"/></linearGradient>
