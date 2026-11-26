@@ -1,13 +1,13 @@
 {
   "github": {
     "best_streak": 7,
-    "commits": 119,
-    "contributions": 174,
+    "commits": 129,
+    "contributions": 184,
     "languages": {
-      "CSS": 112502,
-      "HTML": 142219,
-      "Java": 51245,
-      "JavaScript": 90481,
+      "CSS": 112651,
+      "HTML": 142523,
+      "Java": 56450,
+      "JavaScript": 91045,
       "Kotlin": 78894,
       "Python": 45007,
       "Shell": 201
@@ -24,5 +24,5 @@
     "ranking": null,
     "solved": 2
   },
-  "updated": "2026-11-25"
+  "updated": "2026-11-26"
 }
