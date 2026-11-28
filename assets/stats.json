@@ -1,13 +1,13 @@
 {
   "github": {
-    "best_streak": 8,
-    "commits": 142,
-    "contributions": 197,
+    "best_streak": 9,
+    "commits": 151,
+    "contributions": 206,
     "languages": {
-      "CSS": 112683,
-      "HTML": 142703,
-      "Java": 65068,
-      "JavaScript": 91524,
+      "CSS": 112783,
+      "HTML": 142804,
+      "Java": 74203,
+      "JavaScript": 93488,
       "Kotlin": 78894,
       "Python": 45007,
       "Shell": 201
@@ -15,7 +15,7 @@
     "prs": 23,
     "repos": 7,
     "stars": 0,
-    "streak": 8
+    "streak": 9
   },
   "leetcode": {
     "easy": 2,
@@ -24,5 +24,5 @@
     "ranking": null,
     "solved": 2
   },
-  "updated": "2026-11-27"
+  "updated": "2026-11-28"
 }
